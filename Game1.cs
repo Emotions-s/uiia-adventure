@@ -57,7 +57,7 @@ public class Game1 : Game
         LevelConfig.Load(Content);
 
         _sceneManager = new SceneManager(GraphicsDevice, Content, _spriteBatch, characterManager);
-        _sceneManager.ChangeScene(LevelConfig.GetLevelByName("test"), SceneType.Level);
+        _sceneManager.ChangeScene(LevelConfig.GetLevelByName("1-2"), SceneType.Level);
 
         _renderTarget = new RenderTarget2D(GraphicsDevice, ResolutionManager.VirtualWidth, ResolutionManager.VirtualHeight);
 
