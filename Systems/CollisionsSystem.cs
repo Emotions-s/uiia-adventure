@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
 using uiia_adventure.Globals;
@@ -9,86 +10,35 @@ namespace uiia_adventure.Systems;
 
 public class CollisionSystem : SystemBase
 {
+    private List<(float, Rectangle)> _groundCollisionsCheckOrder = [];
+    private List<(float, Rectangle)> _wallCollisionsCheckOrder = [];
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
+        float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         foreach (var obj in gameObjects)
         {
             var physics = obj.GetComponent<PhysicsComponent>();
-            if (physics == null) continue;
+            var sprite = obj.GetComponent<SpriteComponent>();
+            var debug = obj.GetComponent<DebugComponent>();
+            if (physics == null || sprite == null || debug == null) continue;
 
-            GroundTileComponent ground = null;
-            foreach (var mapObj in gameObjects)
+
+
+
+            var ground = gameObjects.FirstOrDefault(obj => obj.GetComponent<GroundTileComponent>() != null)?.GetComponent<GroundTileComponent>();
+            var wall = gameObjects.FirstOrDefault(obj => obj.GetComponent<WallTileComponent>() != null)?.GetComponent<WallTileComponent>();
+
+            int TileSize = GameConstants.TileSize;
+            Point posTileBotLeft = new((int)obj.Position.X / TileSize, (int)((obj.Position.Y + TileSize - 1) / TileSize));
+            Point posTileBotRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)((obj.Position.Y + TileSize - 1) / TileSize));
+
+            // check tile bot left and right if empty == apply gravity
+            if (!ground.Tiles.Contains(posTileBotLeft) && !ground.Tiles.Contains(posTileBotRight))
             {
-                ground = mapObj.GetComponent<GroundTileComponent>();
-                if (ground != null) break;
+                physics.IsGrounded = false;
             }
 
-            if (ground == null) continue;
-
-            // int TileSize = GameConstants.TileSize;
-            // // Corner tile positions
-            // Point posTileTopLeft = new((int)obj.Position.X / TileSize, (int)obj.Position.Y / TileSize);
-            // Point posTileTopRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)obj.Position.Y / TileSize);
-            // Point posTileBotLeft = new((int)obj.Position.X / TileSize, (int)((obj.Position.Y + TileSize - 1) / TileSize));
-            // Point posTileBotRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)((obj.Position.Y + TileSize - 1) / TileSize));
-
-            // if (obj.Name == "MeowBow")
-            // {
-            //     // Console.WriteLine($"Player Position: {obj.Position}");
-            //     // Console.WriteLine($"TopLeft: {posTileTopLeft}, TopRight: {posTileTopRight}, BotLeft: {posTileBotLeft}, BotRight: {posTileBotRight}");
-            //     // Console.WriteLine($"Velocity: {physics.Velocity}");
-            // }
-
-
-            // Point posNextBotTileLeft = new((int)obj.Position.X / TileSize, (int)((obj.Position.Y + TileSize) / TileSize));
-            // Point posNextBotTileRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)((obj.Position.Y + TileSize) / TileSize));
-
-            // // ground check
-            // if (ground.Tiles.Contains(posNextBotTileLeft) || ground.Tiles.Contains(posNextBotTileRight))
-            // {
-            //     obj.Position = new Vector2(obj.Position.X, posNextBotTileLeft.Y * TileSize - TileSize);
-            //     physics.Velocity.Y = 0;
-            //     physics.IsGrounded = true;
-            // }
-            // else
-            // {
-            //     physics.IsGrounded = false;
-            // }
-
-            // // top check
-            // if (ground.Tiles.Contains(posTileTopLeft) || ground.Tiles.Contains(posTileTopRight))
-            // {
-            //     obj.Position = new Vector2(obj.Position.X, posTileTopLeft.Y * TileSize + TileSize);
-            //     physics.Velocity.Y = 0;
-            // }
-
-            // posTileTopLeft = new((int)obj.Position.X / TileSize, (int)obj.Position.Y / TileSize);
-            // posTileTopRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)obj.Position.Y / TileSize);
-            // posTileBotLeft = new((int)obj.Position.X / TileSize, (int)((obj.Position.Y + TileSize - 1) / TileSize));
-            // posTileBotRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)((obj.Position.Y + TileSize - 1) / TileSize));
-
-
-            // right check
-            // if (ground.Tiles.Contains(posTileTopRight) || ground.Tiles.Contains(posTileBotRight))
-            // {
-            //     if (obj.Name == "MeowBow")
-            //     {
-            //         // Console.WriteLine($"TopLeft: {posTileTopLeft}, TopRight: {posTileTopRight}, BotLeft: {posTileBotLeft}, BotRight: {posTileBotRight}");
-            //         Console.WriteLine($"Bot Tile: {posTileBotRight}, BotLeft: {posTileBotLeft}");
-            //     }
-            //     obj.Position = new Vector2(posTileTopLeft.X * TileSize, obj.Position.Y);
-            //     physics.Velocity.X = 0;
-            // }
-
-
-            List<Rectangle> intersectingTiles = new();
-
-            SpriteComponent sprite = obj.GetComponent<SpriteComponent>();
-
-            DebugComponent debug = obj.GetComponent<DebugComponent>();
-            if (sprite == null || debug == null) continue;
-
-            Rectangle target = new(
+            Rectangle playerRect = new(
                 (int)obj.Position.X + sprite.SourceRect.X,
                 (int)obj.Position.Y + sprite.SourceRect.Y,
                 sprite.SourceRect.Width,
@@ -96,111 +46,75 @@ public class CollisionSystem : SystemBase
             );
 
             debug.PlayerTiles.Clear();
+            HashSet<Point> visited = new();
 
-            intersectingTiles = getIntersectingTileHorizontal(target);
+            int left = playerRect.Left / GameConstants.TileSize;
+            int right = (playerRect.Right - 1) / GameConstants.TileSize;
+            int top = playerRect.Top / GameConstants.TileSize;
+            int bottom = (playerRect.Bottom - 1) / GameConstants.TileSize;
 
-            foreach (var rect in intersectingTiles)
+            _groundCollisionsCheckOrder.Clear();
+            _wallCollisionsCheckOrder.Clear();
+
+            for (int x = left - 1; x <= right + 1; x++)
             {
-                if (ground.Tiles.Contains(new Point(rect.X, rect.Y)))
+                for (int y = top - 1; y <= bottom + 1; y++)
                 {
-                    Rectangle collisitonRect = new(
-                        rect.X * GameConstants.TileSize,
-                        rect.Y * GameConstants.TileSize,
+                    Point gTile = new(x, y);
+                    if (visited.Contains(gTile)) continue;
+                    visited.Add(gTile);
+                    debug.PlayerTiles.Add(gTile);
+
+                    if (!ground.Tiles.Contains(gTile) && !wall.Tiles.Contains(gTile))
+                    {
+                        continue;
+                    }
+
+                    Rectangle tileRect = new(
+                        gTile.X * GameConstants.TileSize,
+                        gTile.Y * GameConstants.TileSize,
                         GameConstants.TileSize,
                         GameConstants.TileSize
                     );
 
-                    if (physics.Velocity.X > 0)
+                    // Get collision tiles and sort them by T distance
+                    if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, tileRect,
+                        out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
                     {
-                        obj.Position = new Vector2(collisitonRect.Left - sprite.SourceRect.Width, obj.Position.Y);
+                        if (ground.Tiles.Contains(gTile))
+                            _groundCollisionsCheckOrder.Add((contactTime, tileRect));
+                        else if (wall.Tiles.Contains(gTile))
+                            _wallCollisionsCheckOrder.Add((contactTime, tileRect));
                     }
-                    else if (physics.Velocity.X < 0)
-                    {
-                        obj.Position = new Vector2(collisitonRect.Right, obj.Position.Y);
-                    }
-                }
-                else
-                {
-                    debug.PlayerTiles.Add(rect);
                 }
             }
+            // sort by distance
+            _groundCollisionsCheckOrder.Sort((a, b) => a.Item1.CompareTo(b.Item1));
+            _wallCollisionsCheckOrder.Sort((a, b) => a.Item1.CompareTo(b.Item1));
 
-            intersectingTiles = getIntersectingTileVertical(target);
-
-            foreach (var rect in intersectingTiles)
+            foreach (var tileCollision in _wallCollisionsCheckOrder)
             {
-                if (ground.Tiles.Contains(new Point(rect.X, rect.Y)))
-                {
-                    Rectangle collisionRect = new(
-                        rect.X * GameConstants.TileSize,
-                        rect.Y * GameConstants.TileSize,
-                        GameConstants.TileSize,
-                        GameConstants.TileSize
-                    );
+                Rectangle tileCollisionRect = tileCollision.Item2;
+                if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, tileCollisionRect,
+                    out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
+                    physics.Velocity += contactNormal * new Vector2(Math.Abs(physics.Velocity.X), Math.Abs(physics.Velocity.Y)) * (1 - contactTime);
 
-                    if (!physics.IsGrounded && physics.Velocity.Y > 0)
+            }
+
+            foreach (var tileCollision in _groundCollisionsCheckOrder)
+            {
+                Rectangle tileCollisionRect = tileCollision.Item2;
+                if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, tileCollisionRect,
+                    out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
+                {
+                    physics.Velocity += contactNormal * new Vector2(Math.Abs(physics.Velocity.X), Math.Abs(physics.Velocity.Y)) * (1 - contactTime);
+                    if (contactNormal.Y < 0)
                     {
-                        Console.WriteLine($"Collision: {collisionRect}");
-                        obj.Position = new Vector2(obj.Position.X, collisionRect.Top - sprite.SourceRect.Height);
                         physics.IsGrounded = true;
                     }
-                    else if (!physics.IsGrounded && physics.Velocity.Y < 0)
-                    {
-                        obj.Position = new Vector2(obj.Position.X, collisionRect.Bottom);
-                    }
 
                 }
-                else
-                {
-                    physics.IsGrounded = false;
-                    debug.PlayerTiles.Add(rect);
-                }
-            }
-
-        }
-    }
-
-    private List<Rectangle> getIntersectingTileHorizontal(Rectangle target)
-    {
-        List<Rectangle> intersectingTiles = new();
-
-        int widthInTiles = (target.Width - (target.Width % GameConstants.TileSize)) / GameConstants.TileSize;
-        int heightInTiles = (target.Height - (target.Height % GameConstants.TileSize)) / GameConstants.TileSize;
-
-        for (int x = 0; x <= widthInTiles; x++)
-        {
-            for (int y = 0; y <= heightInTiles; y++)
-            {
-                intersectingTiles.Add(new Rectangle(
-                    (target.X + x * GameConstants.TileSize) / GameConstants.TileSize,
-                    (target.Y + y * (GameConstants.TileSize - 1)) / GameConstants.TileSize,
-                    GameConstants.TileSize,
-                    GameConstants.TileSize
-                ));
             }
         }
-        return intersectingTiles;
-    }
-
-    private List<Rectangle> getIntersectingTileVertical(Rectangle target)
-    {
-        List<Rectangle> intersectingTiles = new();
-
-        int widthInTiles = (target.Width - (target.Width % GameConstants.TileSize)) / GameConstants.TileSize;
-        int heightInTiles = (target.Height - (target.Height % GameConstants.TileSize)) / GameConstants.TileSize;
-
-        for (int x = 0; x <= widthInTiles; x++)
-        {
-            for (int y = 0; y <= heightInTiles; y++)
-            {
-                intersectingTiles.Add(new Rectangle(
-                    (target.X + x * (GameConstants.TileSize - 1)) / GameConstants.TileSize,
-                    (target.Y + y * GameConstants.TileSize) / GameConstants.TileSize,
-                    GameConstants.TileSize,
-                    GameConstants.TileSize
-                ));
-            }
-        }
-        return intersectingTiles;
     }
 }

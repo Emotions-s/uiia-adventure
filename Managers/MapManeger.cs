@@ -19,17 +19,21 @@ public class MapManager
 
         // load hazard
         HazardTileComponent hazardTileComponent = new();
-        hazardTileComponent.Tiles = loadTileCsvToPos(levelData.hazardPath);
+        hazardTileComponent.Tiles = loadTileCsvToPos(levelData.HazardPath);
         mapObj.AddComponent(hazardTileComponent);
 
         // load ground
         GroundTileComponent groundTileComponent = new();
-        groundTileComponent.Tiles = loadTileCsvToPos(levelData.groundPath);
+        groundTileComponent.Tiles = loadTileCsvToPos(levelData.GroundPath);
         mapObj.AddComponent(groundTileComponent);
 
+        WallTileComponent wallTileComponent = new();
+        wallTileComponent.Tiles = loadTileCsvToPos(levelData.WallPath);
+        mapObj.AddComponent(wallTileComponent);
+
         // load map
-        TileMapComponent tileMapComponent = LoadTileMapCsvToComponent(levelData.mapPath);
-        Texture2D tileset = TilesetCache.GetTileset(levelData.tilesetPath, content);
+        TileMapComponent tileMapComponent = LoadTileMapCsvToComponent(levelData.MapPath);
+        Texture2D tileset = TilesetCache.GetTileset(levelData.TilesetPath, content);
         tileMapComponent.Tileset = tileset;
         tileMapComponent.TilesPerRowSet = tileset.Width / tileMapComponent.TileWidth;
         mapObj.AddComponent(tileMapComponent);

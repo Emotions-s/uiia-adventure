@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using Microsoft.Xna.Framework;
@@ -38,42 +39,43 @@ public static class LevelConfig
         var maps = JsonSerializer.Deserialize<List<RawLevelMap>>(json, options)!;
         foreach (var map in maps)
         {
-            foreach (var sub in map.submap)
+            foreach (var sub in map.Submap)
             {
                 var level = new LevelData(
-                    sub.levelName,
-                    map.basePath,
-                    map.tilesetPath,
-                    sub.tilemapPath,
-                    sub.groundPath,
-                    sub.hazardPath
+                    sub.LevelName,
+                    map.BasePath,
+                    map.TilesetPath,
+                    sub.TilemapPath,
+                    sub.GroundPath,
+                    sub.WallPath,
+                    sub.HazardPath
                 );
                 Levels.Add(level);
             }
         }
-        Console.WriteLine($"Loaded {Levels.Count} levels.");
-        // print the result
+        Debug.WriteLine($"Loaded {Levels.Count} levels.");
         foreach (var level in Levels)
         {
-            Console.WriteLine($"Level: {level.levelName}, Map: {level.mapPath}, Ground: {level.groundPath}, Hazard: {level.hazardPath}");
+            Debug.WriteLine($"Level: {level.LevelName}, Map: {level.MapPath}, Ground: {level.GroundPath}, Hazard: {level.HazardPath}");
         }
     }
 
     public static LevelData? GetLevelByName(string name) =>
-        Levels.Find(level => level.levelName == name);
+        Levels.Find(level => level.LevelName == name);
 
     private class RawLevelMap
     {
-        public string tilesetPath { get; set; }
-        public string basePath { get; set; }
-        public List<RawSubMap> submap { get; set; } = new();
+        public string TilesetPath { get; set; }
+        public string BasePath { get; set; }
+        public List<RawSubMap> Submap { get; set; } = new();
     }
 
     private class RawSubMap
     {
-        public string levelName { get; set; }
-        public string tilemapPath { get; set; }
-        public string groundPath { get; set; }
-        public string hazardPath { get; set; }
+        public string LevelName { get; set; }
+        public string TilemapPath { get; set; }
+        public string GroundPath { get; set; }
+        public string WallPath { get; set; }
+        public string HazardPath { get; set; }
     }
 }

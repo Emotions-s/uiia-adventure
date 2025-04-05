@@ -43,33 +43,8 @@ public class TileRenderSystem : SystemBase
             }
         }
 
-        // ======================= DEBUG =======================
-        // RenderGroundCollision(gameTime, gameObjects);
-        // ======================= DEBUG =======================
-
         _spriteBatch.End();
     }
 
-    public void RenderGroundCollision(GameTime gameTime, List<GameObject> gameObjects)
-    {
 
-        foreach (GameObject obj in gameObjects)
-        {
-            var groundTile = obj.GetComponent<GroundTileComponent>();
-            if (groundTile == null)
-                continue;
-
-            foreach (var tile in groundTile.Tiles)
-            {
-                int x = tile.X;
-                int y = tile.Y;
-
-                var position = new Vector2(x * GameConstants.TileSize, y * GameConstants.TileSize);
-
-
-                _spriteBatch.Draw(GameConstants.Pixel, position, null, new Color(255, 0, 0, 64), 0f, Vector2.Zero, new Vector2(GameConstants.TileSize), SpriteEffects.None, 0f);
-            }
-        }
-
-    }
 }

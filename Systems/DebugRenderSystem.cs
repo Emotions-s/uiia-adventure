@@ -13,21 +13,14 @@ public class DebugRenderSystem(SpriteBatch spriteBatch) : SystemBase
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
         _spriteBatch.Begin();
-        foreach (var gameObject in gameObjects)
-        {
-            if (gameObject.HasComponent<DebugComponent>())
-            {
-                var debugComponent = gameObject.GetComponent<DebugComponent>();
-                foreach (var tile in debugComponent.PlayerTiles)
-                {
-                    DrawTile(tile, new Color(0, 100, 0, 25)); // Green with some transparency
-                }
-            }
-        }
+
+        RenderGroundCollision(gameObjects);
+        RenderWallCollision(gameObjects);
+        RenderDebugTile(gameObjects);
         _spriteBatch.End();
     }
 
-    private void DrawTile(Rectangle tile, Color color)
+    private void DrawTile(Point tile, Color color)
     {
         var tileSize = new Vector2(GameConstants.TileSize, GameConstants.TileSize);
         var position = new Vector2(tile.X * tileSize.X, tile.Y * tileSize.Y);
@@ -43,5 +36,51 @@ public class DebugRenderSystem(SpriteBatch spriteBatch) : SystemBase
             SpriteEffects.None,
             0f
         );
+    }
+
+    public void RenderGroundCollision(List<GameObject> gameObjects)
+    {
+        foreach (GameObject obj in gameObjects)
+        {
+            var groundTile = obj.GetComponent<GroundTileComponent>();
+            if (groundTile == null)
+                continue;
+
+            foreach (var tile in groundTile.Tiles)
+            {
+                DrawTile(tile, new Color(255, 0, 0, 64));
+            }
+        }
+    }
+
+    public void RenderWallCollision(List<GameObject> gameObjects)
+    {
+        foreach (GameObject obj in gameObjects)
+        {
+            var wallTile = obj.GetComponent<WallTileComponent>();
+            if (wallTile == null)
+                continue;
+
+            foreach (var tile in wallTile.Tiles)
+            {
+                DrawTile(tile, new Color(255, 165, 0, 64));
+
+            }
+        }
+    }
+
+    public void RenderDebugTile(List<GameObject> gameObjects)
+    {
+        foreach (var gameObject in gameObjects)
+        {
+            if (gameObject.HasComponent<DebugComponent>())
+            {
+                var debugComponent = gameObject.GetComponent<DebugComponent>();
+                foreach (var tile in debugComponent.PlayerTiles)
+                {
+                    DrawTile(tile, new Color(0, 100, 0, 25));
+                }
+            }
+        }
     }
 }

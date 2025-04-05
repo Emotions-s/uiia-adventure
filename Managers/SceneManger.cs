@@ -36,7 +36,7 @@ public class SceneManager
 
     public void ChangeScene(LevelData levelData, SceneType type)
     {
-        if (_loadedScenes.TryGetValue(levelData.levelName, out var scene))
+        if (_loadedScenes.TryGetValue(levelData.LevelName, out var scene))
         {
             _currentScene = scene;
             return;
@@ -49,7 +49,7 @@ public class SceneManager
                 levelScene.SetPlayers(_characterManager.MeowBow, _characterManager.MeowSword);
                 levelScene.Load(levelData);
                 _currentScene = levelScene;
-                _loadedScenes[levelData.levelName] = levelScene;
+                _loadedScenes[levelData.LevelName] = levelScene;
                 break;
             case SceneType.CutScene:
                 // Implement CutSceneScene in the future

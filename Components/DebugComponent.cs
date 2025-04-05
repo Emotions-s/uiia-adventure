@@ -4,6 +4,6 @@ using Microsoft.Xna.Framework;
 
 public class DebugComponent : IComponent
 {
-    public HashSet<Rectangle> PlayerTiles = new();
+    public HashSet<Point> PlayerTiles = new();
 
 }

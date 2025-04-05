@@ -39,12 +39,14 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new InputSystem());
         _updateSystems.Add(new MovementSystem());
         _updateSystems.Add(new JumpSystem());
-        _updateSystems.Add(new PhysicsSystem());
         _updateSystems.Add(new CollisionSystem());
+        _updateSystems.Add(new PhysicsSystem());
 
         _renderSystems.Add(new TileRenderSystem(_spriteBatch));
         _renderSystems.Add(new RenderSystem(_spriteBatch));
-        _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
+
+        // Uncomment this line to add the debug render system
+        // _renderSystems.Add(new DebugRenderSystem(_spriteBatch)); 
     }
 
     public void SetPlayers(GameObject bow, GameObject sword)

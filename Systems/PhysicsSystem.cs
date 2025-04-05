@@ -7,7 +7,7 @@ using uiia_adventure.Core;
 
 public class PhysicsSystem : SystemBase
 {
-    private const float Gravity = 1000f;
+    private const float Gravity = 1500f;
 
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
@@ -18,11 +18,11 @@ public class PhysicsSystem : SystemBase
             var physics = obj.GetComponent<PhysicsComponent>();
             if (physics == null) continue;
 
+            obj.Position += physics.Velocity * dt;
+
             if (!physics.IsGrounded) {
                 physics.Velocity.Y += Gravity * dt;
             }
-
-            obj.Position += physics.Velocity * dt;
         }
     }
 }

@@ -36,7 +36,7 @@ public class EntityFactory
         obj.AddComponent(new JumpComponent
         {
             MaxJumpHeight = 6 * GameConstants.TileSize + GameConstants.TileSize / 2,
-            JumpSpeed = 600f,
+            JumpSpeed = 800f,
         });
         obj.AddComponent(new DebugComponent());
 
