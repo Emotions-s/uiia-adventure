@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("uiia-adventure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce6d67ee2b4bebe0e350c05b11d0de825faceae8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ac1cf83e0d3fe5341b972dd690b52784c5ea51b")]
 [assembly: System.Reflection.AssemblyProductAttribute("uiia-adventure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("uiia-adventure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
