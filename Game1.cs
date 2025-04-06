@@ -37,22 +37,10 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // var bowTex = Content.Load<Texture2D>("Characters/meow_bow");
-        // var swordTex = Content.Load<Texture2D>("Characters/meow_sword");
-
-        // create temp vector2 size 128 * 128 in color orange
-        var bowTempTex = new Texture2D(GraphicsDevice, 128, 128);
-        var data = new Color[128 * 128];
-        for (int i = 0; i < data.Length; ++i) data[i] = Color.Orange;
-        bowTempTex.SetData(data);
-
-        var SwordTempTex = new Texture2D(GraphicsDevice, 128, 128);
-        var data2 = new Color[128 * 128];
-        for (int i = 0; i < data2.Length; ++i) data2[i] = Color.Gray;
-        SwordTempTex.SetData(data2);
-
+        var meowBowStandTexture = Content.Load<Texture2D>("animation/meawsword_stand");
+        var meowSwordStandTexture = Content.Load<Texture2D>("animation/meawbow_stand"); // adjust if filename differs
         CharacterManager characterManager = new();
-        characterManager.Initialize(bowTempTex, SwordTempTex);
+        characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture);
 
         LevelConfig.Load(Content);
 
