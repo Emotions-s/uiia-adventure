@@ -16,12 +16,16 @@ public class RenderSystem(SpriteBatch spriteBatch) : SystemBase
             if (!obj.HasComponent<SpriteComponent>())
                 continue;
             var sprite = obj.GetComponent<SpriteComponent>();
-
-            _spriteBatch.Draw(
+            spriteBatch.Draw(
                 sprite.Texture,
                 obj.Position + sprite.Offset,
-                sprite.SourceRect,
-                Color.White
+                sprite.RenderSource,
+                Color.White,
+                0f,
+                Vector2.Zero,
+                1f,
+                sprite.FlipHorizontally ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
+                0f
             );
         }
     }

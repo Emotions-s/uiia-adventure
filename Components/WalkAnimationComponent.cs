@@ -1,0 +1,22 @@
+// WalkAnimationComponent.cs
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using uiia_adventure.Components;
+
+namespace uiia_adventure.Components
+{
+    public class WalkAnimationComponent : IComponent
+    {
+        public List<Rectangle> Frames = new();
+        public int CurrentFrame = 0;
+        public float FrameSpeed = 1f / 30f;
+        public float FrameTimer = 0f;
+
+        public bool IsWalking => MoveDirection != 0;
+        public int MoveDirection = 0;
+
+        public Texture2D IdleTexture;
+        public Texture2D WalkTexture;
+    }
+}

@@ -23,6 +23,7 @@ public class PhysicsSystem : SystemBase
             if (!physics.IsGrounded) {
                 physics.Velocity.Y += Gravity * dt;
             }
+            // System.Diagnostics.Debug.WriteLine($"Position.Y = {obj.Position.Y}, Velocity.Y = {physics.Velocity.Y}, IsGrounded = {physics.IsGrounded}");
         }
     }
 }

@@ -4,11 +4,19 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/Users/emotions/Documents/KMITL/StudentWorks/Senior_year/comGame/uiia-adventure/Content/animation/meawbow_stand.png</File>
-    <File>/Users/emotions/Documents/KMITL/StudentWorks/Senior_year/comGame/uiia-adventure/Content/animation/meawsword_stand.png</File>
-    <File>/Users/emotions/Documents/KMITL/StudentWorks/Senior_year/comGame/uiia-adventure/Content/map/map1/tileset_1.png</File>
+    <File>/Users/pinpin/Work/y4t2/com_game/UIIAA/uiia-adventure/Content/animation/meawbow_idle.png</File>
+    <File>/Users/pinpin/Work/y4t2/com_game/UIIAA/uiia-adventure/Content/animation/meawbow_stand.png</File>
+    <File>/Users/pinpin/Work/y4t2/com_game/UIIAA/uiia-adventure/Content/animation/meawsword_idle.png</File>
+    <File>/Users/pinpin/Work/y4t2/com_game/UIIAA/uiia-adventure/Content/animation/meawsword_stand.png</File>
+    <File>/Users/pinpin/Work/y4t2/com_game/UIIAA/uiia-adventure/Content/animation/meowbow_walk.png</File>
+    <File>/Users/pinpin/Work/y4t2/com_game/UIIAA/uiia-adventure/Content/animation/meowsword_walk.png</File>
+    <File>/Users/pinpin/Work/y4t2/com_game/UIIAA/uiia-adventure/Content/map/map1/tileset_1.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

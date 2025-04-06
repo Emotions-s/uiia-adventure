@@ -48,6 +48,7 @@ public class LevelScene : SceneBase
 
         _renderSystems.Add(new TileRenderSystem(_spriteBatch));
         _renderSystems.Add(new RenderSystem(_spriteBatch));
+        _updateSystems.Add(new AnimationSystem());
 
         // Uncomment this line to add the debug render system
         // _renderSystems.Add(new DebugRenderSystem(_spriteBatch));

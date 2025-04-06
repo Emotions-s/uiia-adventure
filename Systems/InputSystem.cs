@@ -21,11 +21,21 @@ public class InputSystem : SystemBase
             input.WantsToJump = false;
 
             if (state.IsKeyDown(input.Left))
+            {
                 input.MoveDirection -= 1;
+                input.LastDirectionKeyPressed = input.Left;
+            }
+
             if (state.IsKeyDown(input.Right))
+            {
                 input.MoveDirection += 1;
+                input.LastDirectionKeyPressed = input.Right;
+            }
+
             if (state.IsKeyDown(input.Jump))
+            {
                 input.WantsToJump = true;
+            }
         }
     }
 }

@@ -1,15 +1,18 @@
 namespace uiia_adventure.Factories;
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
 using uiia_adventure.Globals;
+using System.Collections.Generic;
+
 
 public class EntityFactory
 {
-    public static GameObject CreateMeowBow(Vector2 position, Texture2D texture)
+    public static GameObject CreateMeowBow(Vector2 position, Texture2D texture, Texture2D walkTexture)
     {
         var obj = new GameObject();
         obj.Name = "MeowBow";
@@ -39,11 +42,22 @@ public class EntityFactory
             JumpSpeed = 800f,
         });
         obj.AddComponent(new DebugComponent());
+        obj.AddComponent(new WalkAnimationComponent
+        {
+            FrameSpeed = 1f / 30f,
+            IdleTexture = texture,
+            WalkTexture = walkTexture,
+            Frames = new List<Rectangle>
+            {
+                new Rectangle(0, 0, 64, 64),
+                new Rectangle(0, 64, 64, 64)
+            }
+        });
 
         return obj;
     }
 
-    public static GameObject CreateMeowSword(Vector2 position, Texture2D texture)
+    public static GameObject CreateMeowSword(Vector2 position, Texture2D texture, Texture2D walkTexture)
     {
         var obj = new GameObject();
         obj.Name = "MeowSword";
@@ -67,6 +81,17 @@ public class EntityFactory
 
         obj.AddComponent(new JumpComponent());
         obj.AddComponent(new DebugComponent());
+        obj.AddComponent(new WalkAnimationComponent
+        {
+            FrameSpeed = 1f / 30f,
+            IdleTexture = texture,
+            WalkTexture = walkTexture,
+            Frames = new List<Rectangle>
+            {
+                new Rectangle(0, 0, 64, 64),
+                new Rectangle(0, 64, 64, 64)
+            }
+        });
 
         return obj;
     }
