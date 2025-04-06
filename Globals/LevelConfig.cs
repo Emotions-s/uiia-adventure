@@ -1,14 +1,11 @@
-// File: Globals/LevelConfig.cs
+namespace uiia_adventure.Globals;
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-
-namespace uiia_adventure.Globals;
 
 public static class LevelConfig
 {
@@ -17,11 +14,11 @@ public static class LevelConfig
     public static void Load(ContentManager content)
     {
         string path = Path.Combine(AppContext.BaseDirectory, "../../../Content/Data/level.json");
-        Console.WriteLine($"Loading level config from: {path}");
+        Debug.WriteLine($"Loading level config from: {path}");
 
         if (!File.Exists(path))
         {
-            Console.WriteLine($"Error: File not found at {path}");
+            Debug.WriteLine($"Error: File not found at {path}");
             return;
         }
 

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using uiia_adventure.Factories;
 using uiia_adventure.Globals;
 using uiia_adventure.Managers;
+using uiia_adventure.Systems;
 
 namespace uiia_adventure;
 
@@ -16,7 +17,6 @@ public class Game1 : Game
     private SceneManager _sceneManager;
 
     private RenderTarget2D _renderTarget;
-
 
     public Game1()
     {
@@ -37,8 +37,8 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        var meowBowStandTexture = Content.Load<Texture2D>("animation/meawsword_stand");
-        var meowSwordStandTexture = Content.Load<Texture2D>("animation/meawbow_stand"); // adjust if filename differs
+        var meowBowStandTexture = Content.Load<Texture2D>("animation/meawbow_stand");
+        var meowSwordStandTexture = Content.Load<Texture2D>("animation/meawsword_stand"); // adjust if filename differs
         CharacterManager characterManager = new();
         characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture);
 

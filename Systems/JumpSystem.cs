@@ -1,11 +1,10 @@
+namespace uiia_adventure.Systems;
+
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
 
-namespace uiia_adventure.Systems;
 
 public class JumpSystem : SystemBase
 {

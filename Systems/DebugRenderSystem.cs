@@ -12,12 +12,9 @@ public class DebugRenderSystem(SpriteBatch spriteBatch) : SystemBase
     private readonly SpriteBatch _spriteBatch = spriteBatch;
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
-        _spriteBatch.Begin();
-
         RenderGroundCollision(gameObjects);
         RenderWallCollision(gameObjects);
         RenderDebugTile(gameObjects);
-        _spriteBatch.End();
     }
 
     private void DrawTile(Point tile, Color color)

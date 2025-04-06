@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using uiia_adventure.Core;
 using uiia_adventure.Components;
-using uiia_adventure.Globals;
 
 public class TileRenderSystem : SystemBase
 {
@@ -18,8 +17,6 @@ public class TileRenderSystem : SystemBase
 
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
-        _spriteBatch.Begin();
-
         foreach (GameObject obj in gameObjects)
         {
             if (!obj.HasComponent<TileMapComponent>())
@@ -42,8 +39,6 @@ public class TileRenderSystem : SystemBase
                 _spriteBatch.Draw(tileMap.Tileset, position, sourceRect, Color.White);
             }
         }
-
-        _spriteBatch.End();
     }
 
 

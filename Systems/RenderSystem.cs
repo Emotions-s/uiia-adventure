@@ -11,8 +11,6 @@ public class RenderSystem(SpriteBatch spriteBatch) : SystemBase
 
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
-        _spriteBatch.Begin();
-
         foreach (var obj in gameObjects)
         {
             if (!obj.HasComponent<SpriteComponent>())
@@ -26,7 +24,5 @@ public class RenderSystem(SpriteBatch spriteBatch) : SystemBase
                 Color.White
             );
         }
-
-        _spriteBatch.End();
     }
 }
