@@ -33,8 +33,8 @@ public class CameraSystem : SystemBase
 
         foreach (var obj in gameObjects)
         {
-            if (obj.Name == "MeowBow") meowBow = obj;
-            else if (obj.Name == "MeowSword") meowSword = obj;
+            if (obj.Name == GameConstants.MeowBowName) meowBow = obj;
+            else if (obj.Name == GameConstants.MeowSwordName) meowSword = obj;
         }
 
         if (meowBow == null || meowSword == null || _mapWidthInTiles == 0)

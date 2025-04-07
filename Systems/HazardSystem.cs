@@ -7,7 +7,6 @@ using uiia_adventure.Components;
 using System.Linq;
 using uiia_adventure.Globals;
 using uiia_adventure.Managers;
-using System.Diagnostics;
 
 public class HazardSystem : SystemBase
 {
@@ -16,7 +15,7 @@ public class HazardSystem : SystemBase
 
         foreach (var obj in gameObjects)
         {
-            if (obj.Name != "MeowBow" && obj.Name != "MeowSword") continue;
+            if (obj.Name != GameConstants.MeowBowName && obj.Name != GameConstants.MeowSwordName) continue;
             var physics = obj.GetComponent<PhysicsComponent>();
             var sprite = obj.GetComponent<SpriteComponent>();
             if (physics == null || sprite == null) continue;

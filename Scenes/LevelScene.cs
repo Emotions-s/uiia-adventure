@@ -46,6 +46,7 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new CollisionSystem());
         _updateSystems.Add(new PhysicsSystem(_cameraSystem));
         _updateSystems.Add(new HazardSystem());
+        _updateSystems.Add(new ButtonSystem());
         _updateSystems.Add(new DeathSystem());
 
         _updateSystems.Add(new AnimationSystem());
@@ -102,6 +103,38 @@ public class LevelScene : SceneBase
         });
 
         _gameObjects.Add(musicPlayer);
+
+        // load buttons
+        var buttonObj = new GameObject();
+        buttonObj.Name = "btn1-1-1";
+        buttonObj.Position = new Vector2(64 * 11, 64 * 7);
+        buttonObj.AddComponent(new SpriteComponent
+        {
+            Texture = _content.Load<Texture2D>("sprite/button"),
+            SourceRect = new Rectangle(0, 0, 64, 64),
+            RenderSource = new Rectangle(0, 0, 64, 64),
+        });
+        buttonObj.AddComponent(new ButtonComponent
+        {
+            targetIds = new List<string> { "ladder1-1-1" },
+        });
+
+        var ladderObj = new GameObject();
+        ladderObj.Name = "ladder1-1-1";
+        ladderObj.AddComponent(new TriggerableTileMapComponent()
+        {
+            TriggerId = "ladder1-1-1",
+            Grid = new Dictionary<Point, int>
+            {
+                { new Point(9, 8), 32 },
+                { new Point(9, 9), 32 },
+                { new Point(9, 10), 32 },
+                { new Point(9, 11), 32 },
+            }
+        });
+        _gameObjects.Add(buttonObj);
+        _gameObjects.Add(ladderObj);
+
         RespawnManager.RespawnPlayers(_gameObjects);
     }
 

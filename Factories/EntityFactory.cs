@@ -15,7 +15,7 @@ public class EntityFactory
     public static GameObject CreateMeowBow(Vector2 position, Texture2D texture, Texture2D walkTexture, Texture2D jumpTexture)
     {
         var obj = new GameObject();
-        obj.Name = "MeowBow";
+        obj.Name = GameConstants.MeowBowName;
         obj.Position = position;
 
         obj.AddComponent(new InputComponent
@@ -72,7 +72,7 @@ public class EntityFactory
     public static GameObject CreateMeowSword(Vector2 position, Texture2D texture, Texture2D walkTexture, Texture2D jumpTexture)
     {
         var obj = new GameObject();
-        obj.Name = "MeowSword";
+        obj.Name = GameConstants.MeowSwordName;
         obj.Position = position;
 
         obj.AddComponent(new InputComponent

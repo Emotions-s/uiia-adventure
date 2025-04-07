@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using uiia_adventure.Core;
+using uiia_adventure.Globals;
 
 namespace uiia_adventure.Managers;
 
@@ -13,10 +14,10 @@ public static class RespawnManager
     {
         foreach (var obj in gameObjects)
         {
-            if (obj.Name == "MeowBow")
+            if (obj.Name == GameConstants.MeowBowName)
                 obj.Position = SpawnPoint;
 
-            if (obj.Name == "MeowSword")
+            if (obj.Name == GameConstants.MeowSwordName)
                 obj.Position = SpawnPoint + new Vector2(64, 0);
         }
     }

@@ -15,7 +15,11 @@ public class GameObject
     public T GetComponent<T>() where T : IComponent {
         if (Components.ContainsKey(typeof(T))) return (T)Components[typeof(T)];
         return default;
+    }
 
+    public T GetComponent<T>(Type type) where T : IComponent {
+        if (Components.ContainsKey(type)) return (T)Components[type];
+        return default;
     }
 
     public void RemoveComponent<T>() where T : IComponent => Components.Remove(typeof(T));

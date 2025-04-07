@@ -16,16 +16,12 @@ public class MapManager
     public GameObject LoadLevel(LevelData levelData, ContentManager content)
     {
         GameObject mapObj = new GameObject();
-        mapObj.Name = "TileMap";
+        mapObj.Name = GameConstants.TileMapName;
 
         // load hazard
         HazardTileComponent hazardTileComponent = new();
         hazardTileComponent.Tiles = loadTileCsvToPos(levelData.HazardPath);
         // show all points of hazard
-        foreach (var point in hazardTileComponent.Tiles)
-        {
-            Debug.WriteLine($"Hazard Point: {point}");
-        }
         mapObj.AddComponent(hazardTileComponent);
 
         // load ground

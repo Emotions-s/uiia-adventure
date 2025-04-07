@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
+using uiia_adventure.Core;
 
 namespace uiia_adventure.Globals;
 
@@ -86,5 +87,27 @@ public static class CollisionHelper
         float temp = a;
         a = b;
         b = temp;
+    }
+
+    public static bool ObjectVsObject(GameObject objA, GameObject objB)
+    {
+        if (objA == null || objB == null) return false;
+        var rectSourceA = objA.GetComponent<SpriteComponent>().SourceRect;
+        var rectSourceB = objB.GetComponent<SpriteComponent>().SourceRect;
+
+        var rectA = new Rectangle(
+            (int)objA.Position.X + rectSourceA.X,
+            (int)objA.Position.Y + rectSourceA.Y,
+            rectSourceA.Width,
+            rectSourceA.Height
+        );
+        var rectB = new Rectangle(
+            (int)objB.Position.X + rectSourceB.X,
+            (int)objB.Position.Y + rectSourceB.Y,
+            rectSourceB.Width,
+            rectSourceB.Height
+        );
+
+        return rectA.Intersects(rectB);
     }
 }
