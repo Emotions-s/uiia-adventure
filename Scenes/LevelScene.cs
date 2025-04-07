@@ -16,13 +16,10 @@ public class LevelScene : SceneBase
     private readonly List<SystemBase> _updateSystems = new();
     private readonly List<SystemBase> _renderSystems = new();
     private CameraSystem _cameraSystem;
-
     private readonly MapManager _mapManager = new();
-
     private readonly GraphicsDevice _graphics;
     private readonly ContentManager _content;
     private readonly SpriteBatch _spriteBatch;
-
     private GameObject _meowBow;
     private GameObject _meowSword;
 
@@ -31,7 +28,6 @@ public class LevelScene : SceneBase
         _graphics = graphics;
         _content = content;
         _spriteBatch = spriteBatch;
-
         InitializeSystems();
     }
 
@@ -46,9 +42,10 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new ClimbSystem());
         _updateSystems.Add(new CollisionSystem());
         _updateSystems.Add(new PhysicsSystem(_cameraSystem));
-
         _updateSystems.Add(new AnimationSystem());
 
+        // Parallax
+        _renderSystems.Add(new ParallaxSystem(_spriteBatch, _cameraSystem));
         _renderSystems.Add(new TileRenderSystem(_spriteBatch));
         _renderSystems.Add(new RenderSystem(_spriteBatch));
 
@@ -70,6 +67,15 @@ public class LevelScene : SceneBase
 
         _gameObjects.Add(tileMapObject);
 
+        var bg1 = _content.Load<Texture2D>("map/background/background_1");
+        var bg2 = _content.Load<Texture2D>("map/background/background_2");
+        
+        var parallax = new ParallaxComponent(bg1, bg2, 0.05f, 0.1f);
+        var parallaxObj = new GameObject();
+        parallaxObj.Position = Vector2.Zero;
+        parallaxObj.AddComponent(parallax);
+        _gameObjects.Add(parallaxObj);
+
         _meowBow.Position = new Vector2(64, 700);
         _meowSword.Position = new Vector2(192, 700);
 
@@ -87,7 +93,7 @@ public class LevelScene : SceneBase
 
     public override void Draw(GameTime gameTime)
     {
-        _graphics.Clear(Color.CornflowerBlue);
+        _graphics.Clear(new Color(26, 24, 24));
         _spriteBatch.Begin(transformMatrix: _cameraSystem.Transform, samplerState: SamplerState.PointClamp);
         foreach (var system in _renderSystems)
             system.Update(gameTime, _gameObjects);
