@@ -133,6 +133,12 @@
 /processorParam:TextureFormat=Color
 /build:map/background/background_2.PNG
 
+#begin audio/cat_die.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/cat_die.wav
+
 #begin audio/cat_jumping.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

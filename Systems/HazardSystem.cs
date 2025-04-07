@@ -49,6 +49,10 @@ public class HazardSystem : SystemBase
             {
                 if (hazardTiles.Tiles.Contains(corner))
                 {
+                    if (Game1.deathSound != null)
+                    {
+                        Game1.deathSound.Play(1f, 0f, 0f); // 🔊 full volume, no pitch, no pan
+                    }
                     RespawnManager.RespawnPlayers(gameObjects);
                     break;
                 }
