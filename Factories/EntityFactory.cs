@@ -98,7 +98,7 @@ public class EntityFactory
             IdleTexture = texture,
             WalkTexture = walkTexture,
             JumpTexture = jumpTexture,
-            
+
             Frames = new List<Rectangle>
             {
                 new Rectangle(0, 0, 64, 64),

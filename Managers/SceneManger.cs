@@ -52,7 +52,10 @@ public class SceneManager
                 _loadedScenes[levelData.LevelName] = levelScene;
                 break;
             case SceneType.CutScene:
-                // Implement CutSceneScene in the future
+                CutScene cutScene = new(_graphics, _content, _spriteBatch);
+                _currentScene = cutScene;
+                _loadedScenes[levelData.LevelName] = cutScene;
+                _currentScene.Load(levelData);
                 break;
         }
     }
