@@ -61,6 +61,18 @@
 /processorParam:TextureFormat=Color
 /build:animation/meawsword_stand.png
 
+#begin animation/meowbow_jump.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:animation/meowbow_jump.png
+
 #begin animation/meowbow_walk.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,6 +96,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animation/meowbow_walk.png
+
+#begin animation/meowbow_walk.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:animation/meowbow_walk.png
+
+#begin animation/meowsword_jump.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:animation/meowsword_jump.png
 
 #begin animation/meowsword_walk.png
 /importer:TextureImporter

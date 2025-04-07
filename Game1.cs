@@ -41,9 +41,11 @@ public class Game1 : Game
         var meowSwordStandTexture = Content.Load<Texture2D>("animation/meawsword_stand"); // adjust if filename differs
         var meowSwordWalkTexture = Content.Load<Texture2D>("animation/meowsword_walk");
         var meowBowWalkTexture = Content.Load<Texture2D>("animation/meowbow_walk");
+        var meowSwordJumpTexture = Content.Load<Texture2D>("animation/meowsword_jump");
+        var meowBowJumpTexture = Content.Load<Texture2D>("animation/meowbow_jump");
 
         CharacterManager characterManager = new();
-        characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture);
+        characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture);
 
         LevelConfig.Load(Content);
 

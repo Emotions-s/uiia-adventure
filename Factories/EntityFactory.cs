@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public class EntityFactory
 {
-    public static GameObject CreateMeowBow(Vector2 position, Texture2D texture, Texture2D walkTexture)
+    public static GameObject CreateMeowBow(Vector2 position, Texture2D texture, Texture2D walkTexture, Texture2D jumpTexture)
     {
         var obj = new GameObject();
         obj.Name = "MeowBow";
@@ -49,14 +49,20 @@ public class EntityFactory
             Frames = new List<Rectangle>
             {
                 new Rectangle(0, 0, 64, 64),
-                new Rectangle(0, 64, 64, 64)
+                new Rectangle(0, 64, 64, 64),
+                new Rectangle(0, 128, 64, 64),
+                new Rectangle(0, 192, 64, 64),
+                new Rectangle(0, 256, 64, 64),
+                new Rectangle(0, 320, 64, 64),
+                new Rectangle(0, 384, 64, 64),
+                new Rectangle(0, 448, 64, 64),
             }
         });
 
         return obj;
     }
 
-    public static GameObject CreateMeowSword(Vector2 position, Texture2D texture, Texture2D walkTexture)
+    public static GameObject CreateMeowSword(Vector2 position, Texture2D texture, Texture2D walkTexture, Texture2D jumpTexture)
     {
         var obj = new GameObject();
         obj.Name = "MeowSword";
