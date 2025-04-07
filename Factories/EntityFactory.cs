@@ -87,7 +87,13 @@ public class EntityFactory
             Frames = new List<Rectangle>
             {
                 new Rectangle(0, 0, 64, 64),
-                new Rectangle(0, 64, 64, 64)
+                new Rectangle(0, 64, 64, 64),
+                new Rectangle(0, 128, 64, 64),
+                new Rectangle(0, 192, 64, 64),
+                new Rectangle(0, 256, 64, 64),
+                new Rectangle(0, 320, 64, 64),
+                new Rectangle(0, 384, 64, 64),
+                new Rectangle(0, 448, 64, 64),
             }
         });
 
