@@ -52,6 +52,8 @@ public class LevelScene : SceneBase
 
         // Parallax
         _renderSystems.Add(new ParallaxSystem(_spriteBatch, _cameraSystem));
+        // Parallax
+        _renderSystems.Add(new ParallaxSystem(_spriteBatch, _cameraSystem));
         _renderSystems.Add(new TileRenderSystem(_spriteBatch));
         _renderSystems.Add(new RenderSystem(_spriteBatch));
 
@@ -78,7 +80,7 @@ public class LevelScene : SceneBase
 
         var bg1 = _content.Load<Texture2D>("map/background/background_1");
         var bg2 = _content.Load<Texture2D>("map/background/background_2");
-        
+
         var parallax = new ParallaxComponent(bg1, bg2, 0.05f, 0.1f);
         var parallaxObj = new GameObject();
         parallaxObj.Position = Vector2.Zero;
