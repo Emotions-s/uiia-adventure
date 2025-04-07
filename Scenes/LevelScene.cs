@@ -46,9 +46,10 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new CollisionSystem());
         _updateSystems.Add(new PhysicsSystem());
 
+        _updateSystems.Add(new AnimationSystem());
+
         _renderSystems.Add(new TileRenderSystem(_spriteBatch));
         _renderSystems.Add(new RenderSystem(_spriteBatch));
-        _updateSystems.Add(new AnimationSystem());
 
         // Uncomment this line to add the debug render system
         // _renderSystems.Add(new DebugRenderSystem(_spriteBatch));

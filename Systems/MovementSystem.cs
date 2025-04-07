@@ -1,6 +1,7 @@
 namespace uiia_adventure.Systems;
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using uiia_adventure.Components;
 using uiia_adventure.Core;

@@ -44,7 +44,6 @@ public class EntityFactory
         obj.AddComponent(new DebugComponent());
         obj.AddComponent(new WalkAnimationComponent
         {
-            FrameSpeed = 1f / 30f,
             IdleTexture = texture,
             WalkTexture = walkTexture,
             Frames = new List<Rectangle>
@@ -83,7 +82,6 @@ public class EntityFactory
         obj.AddComponent(new DebugComponent());
         obj.AddComponent(new WalkAnimationComponent
         {
-            FrameSpeed = 1f / 30f,
             IdleTexture = texture,
             WalkTexture = walkTexture,
             Frames = new List<Rectangle>

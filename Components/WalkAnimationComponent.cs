@@ -10,7 +10,7 @@ namespace uiia_adventure.Components
     {
         public List<Rectangle> Frames = new();
         public int CurrentFrame = 0;
-        public float FrameSpeed = 1f / 30f;
+        public float FrameSpeed = 3f / 30f;
         public float FrameTimer = 0f;
 
         public bool IsWalking => MoveDirection != 0;
