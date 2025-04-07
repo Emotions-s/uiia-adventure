@@ -46,6 +46,7 @@ public class EntityFactory
         {
             IdleTexture = texture,
             WalkTexture = walkTexture,
+            JumpTexture = jumpTexture,
             Frames = new List<Rectangle>
             {
                 new Rectangle(0, 0, 64, 64),
@@ -56,7 +57,8 @@ public class EntityFactory
                 new Rectangle(0, 320, 64, 64),
                 new Rectangle(0, 384, 64, 64),
                 new Rectangle(0, 448, 64, 64),
-            }
+            },
+            JumpFrame = new Rectangle(0, 0, 64, 64),
         });
 
         return obj;
@@ -90,6 +92,8 @@ public class EntityFactory
         {
             IdleTexture = texture,
             WalkTexture = walkTexture,
+            JumpTexture = jumpTexture,
+            
             Frames = new List<Rectangle>
             {
                 new Rectangle(0, 0, 64, 64),
@@ -100,7 +104,8 @@ public class EntityFactory
                 new Rectangle(0, 320, 64, 64),
                 new Rectangle(0, 384, 64, 64),
                 new Rectangle(0, 448, 64, 64),
-            }
+            },
+            JumpFrame = new Rectangle(0, 0, 64, 64),
         });
 
         return obj;

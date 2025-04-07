@@ -18,5 +18,7 @@ namespace uiia_adventure.Components
 
         public Texture2D IdleTexture;
         public Texture2D WalkTexture;
+        public Texture2D JumpTexture;
+        public Rectangle JumpFrame;
     }
 }

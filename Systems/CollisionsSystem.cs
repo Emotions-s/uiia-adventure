@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
@@ -29,8 +30,8 @@ public class CollisionSystem : SystemBase
             var wall = gameObjects.FirstOrDefault(obj => obj.GetComponent<WallTileComponent>() != null)?.GetComponent<WallTileComponent>();
 
             int TileSize = GameConstants.TileSize;
-            Point posTileBotLeft = new((int)obj.Position.X / TileSize, (int)((obj.Position.Y + TileSize - 1) / TileSize));
-            Point posTileBotRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)((obj.Position.Y + TileSize - 1) / TileSize));
+            Point posTileBotLeft = new((int)obj.Position.X / TileSize, (int)((obj.Position.Y + TileSize) / TileSize));
+            Point posTileBotRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)((obj.Position.Y + TileSize) / TileSize));
 
             // check tile bot left and right if empty == apply gravity
             if (!ground.Tiles.Contains(posTileBotLeft) && !ground.Tiles.Contains(posTileBotRight))

@@ -18,7 +18,9 @@ namespace uiia_adventure.Systems
                 var input = obj.GetComponent<InputComponent>();
                 var walkAnim = obj.GetComponent<WalkAnimationComponent>();
 
-                if (sprite == null || input == null || walkAnim == null) continue;
+                var physics = obj.GetComponent<PhysicsComponent>();
+
+                if (sprite == null || input == null || walkAnim == null || physics == null) continue;
 
                 // Flip based on actual key
                 if (input.LastDirectionKeyPressed == input.Right)
@@ -28,7 +30,11 @@ namespace uiia_adventure.Systems
 
                 walkAnim.MoveDirection = input.MoveDirection;
 
-                if (walkAnim.IsWalking)
+                if (!physics.IsGrounded) {
+                    sprite.Texture = walkAnim.JumpTexture;
+                    sprite.RenderSource = walkAnim.JumpFrame;
+                }
+                else if (walkAnim.IsWalking)
                 {
                     sprite.Texture = walkAnim.WalkTexture;
 
