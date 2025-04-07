@@ -23,9 +23,6 @@ public class CollisionSystem : SystemBase
             var debug = obj.GetComponent<DebugComponent>();
             if (physics == null || sprite == null || debug == null) continue;
 
-
-
-
             var ground = gameObjects.FirstOrDefault(obj => obj.GetComponent<GroundTileComponent>() != null)?.GetComponent<GroundTileComponent>();
             var wall = gameObjects.FirstOrDefault(obj => obj.GetComponent<WallTileComponent>() != null)?.GetComponent<WallTileComponent>();
 

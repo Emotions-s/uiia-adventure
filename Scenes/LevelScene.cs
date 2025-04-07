@@ -48,6 +48,8 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new ClimbSystem());
         _updateSystems.Add(new CollisionSystem());
         _updateSystems.Add(new PhysicsSystem(_cameraSystem));
+        _updateSystems.Add(new HazardSystem());
+        _updateSystems.Add(new DeathSystem());
 
         _updateSystems.Add(new AnimationSystem());
 
@@ -67,16 +69,13 @@ public class LevelScene : SceneBase
     public override void Load(LevelData levelData)
     {
         var tileMapObject = _mapManager.LoadLevel(levelData, _content);
+        RespawnManager.SpawnPoint = levelData.SpawnPoint;
         var tileMap = tileMapObject.GetComponent<TileMapComponent>();
         var musicPlayer = new GameObject();
-        
+
         _cameraSystem.SetMapWidthInTiles(tileMap.TilesPerRowMap);
 
         _gameObjects.Add(tileMapObject);
-
-        _meowBow.Position = new Vector2(64, 700);
-        _meowSword.Position = new Vector2(192, 700);
-
         _gameObjects.Add(_meowBow);
         _gameObjects.Add(_meowSword);
         // Create music player object
@@ -88,7 +87,8 @@ public class LevelScene : SceneBase
             PlayMusicOnStart = true
         });
 
-_gameObjects.Add(musicPlayer);
+        _gameObjects.Add(musicPlayer);
+        RespawnManager.RespawnPlayers(_gameObjects);
     }
 
     public override void Update(GameTime gameTime)
