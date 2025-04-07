@@ -6,6 +6,8 @@
             {
                 "levelName": "1-1",
                 "tilemapPath": "map/map1/tilemap_1_1.csv",
+                "dynamicTilemapPath": "map/map1/dynamicTilemap_1_1.csv",
+                "ladderPath": "map/map1/ladder_1_1.csv",
                 "groundPath": "map/map1/ground_1_1.csv",
                 "wallPath": "map/map1/wall_1_1.csv",
                 "hazardPath": "map/map1/hazard_1_1.csv"
@@ -13,6 +15,8 @@
             {
                 "levelName": "1-2",
                 "tilemapPath": "map/map1/tilemap_1_2.csv",
+                "dynamicTilemapPath": "map/map1/dynamicTilemap_1_2.csv",
+                "ladderPath": "map/map1/ladder_1_2.csv",
                 "groundPath": "map/map1/ground_1_2.csv",
                 "wallPath": "map/map1/wall_1_2.csv",
                 "hazardPath": "map/map1/hazard_1_2.csv"
@@ -20,6 +24,8 @@
             {
                 "levelName": "test",
                 "tilemapPath": "map/map1/tilemap_test.csv",
+                "dynamicTilemapPath": "map/map1/dynamicTilemap_test.csv",
+                "ladderPath": "map/map1/ladder_test.csv",
                 "groundPath": "map/map1/ground_test.csv",
                 "wallPath": "map/map1/wall_test.csv",
                 "hazardPath": "map/map1/hazard_test.csv"

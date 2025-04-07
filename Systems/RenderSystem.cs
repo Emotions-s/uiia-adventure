@@ -16,7 +16,7 @@ public class RenderSystem(SpriteBatch spriteBatch) : SystemBase
             if (!obj.HasComponent<SpriteComponent>())
                 continue;
             var sprite = obj.GetComponent<SpriteComponent>();
-            spriteBatch.Draw(
+            _spriteBatch.Draw(
                 sprite.Texture,
                 obj.Position + sprite.Offset,
                 sprite.RenderSource,

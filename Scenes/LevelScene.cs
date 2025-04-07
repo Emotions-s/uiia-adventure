@@ -43,6 +43,7 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new InputSystem());
         _updateSystems.Add(new MovementSystem());
         _updateSystems.Add(new JumpSystem());
+        _updateSystems.Add(new ClimbSystem());
         _updateSystems.Add(new CollisionSystem());
         _updateSystems.Add(new PhysicsSystem(_cameraSystem));
 

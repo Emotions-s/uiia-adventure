@@ -27,9 +27,15 @@ public class MapManager
         groundTileComponent.Tiles = loadTileCsvToPos(levelData.GroundPath);
         mapObj.AddComponent(groundTileComponent);
 
+        // load wall
         WallTileComponent wallTileComponent = new();
         wallTileComponent.Tiles = loadTileCsvToPos(levelData.WallPath);
         mapObj.AddComponent(wallTileComponent);
+
+        // load ladder
+        LadderComponent ladderComponent = new();
+        ladderComponent.Tiles = loadTileCsvToPos(levelData.LadderPath);
+        mapObj.AddComponent(ladderComponent);
 
         // load map
         TileMapComponent tileMapComponent = LoadTileMapCsvToComponent(levelData.MapPath);

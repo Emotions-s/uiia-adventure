@@ -38,15 +38,17 @@ public static class LevelConfig
         {
             foreach (var sub in map.Submap)
             {
-                var level = new LevelData(
-                    sub.LevelName,
-                    map.BasePath,
-                    map.TilesetPath,
-                    sub.TilemapPath,
-                    sub.GroundPath,
-                    sub.WallPath,
-                    sub.HazardPath
-                );
+                var level = new LevelData()
+                {
+                    LevelName = sub.LevelName,
+                    MapPath = Path.Combine(map.BasePath, sub.TilemapPath),
+                    DynamicMapPath = Path.Combine(map.BasePath, sub.DynamicTilemapPath),
+                    LadderPath = Path.Combine(map.BasePath, sub.LadderPath),
+                    GroundPath = Path.Combine(map.BasePath, sub.GroundPath),
+                    WallPath = Path.Combine(map.BasePath, sub.WallPath),
+                    HazardPath = Path.Combine(map.BasePath, sub.HazardPath),
+                    TilesetPath = map.TilesetPath
+                };
                 Levels.Add(level);
             }
         }
@@ -71,6 +73,8 @@ public static class LevelConfig
     {
         public string LevelName { get; set; }
         public string TilemapPath { get; set; }
+        public string DynamicTilemapPath { get; set; }
+        public string LadderPath { get; set; }
         public string GroundPath { get; set; }
         public string WallPath { get; set; }
         public string HazardPath { get; set; }
