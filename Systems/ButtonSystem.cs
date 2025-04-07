@@ -38,7 +38,7 @@ public class ButtonSystem : SystemBase
 
                 ButtonComponent.IsPressed = true;
 
-                var triggerObj = SystemHelper.GetTriggerGameObjectByIds(gameObjects, ButtonComponent.targetIds);
+                var triggerObj = SystemHelper.GetTriggerGameObjectByIds(gameObjects, ButtonComponent.TargetIds);
                 if (triggerObj == null)
                     break;
 

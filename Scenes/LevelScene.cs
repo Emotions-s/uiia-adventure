@@ -116,7 +116,7 @@ public class LevelScene : SceneBase
         });
         buttonObj.AddComponent(new ButtonComponent
         {
-            targetIds = new List<string> { "ladder1-1-1" },
+            TargetIds = new List<string> { "ladder1-1-1" },
         });
 
         var ladderObj = new GameObject();

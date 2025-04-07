@@ -35,23 +35,20 @@ public static class SystemHelper
         return null;
     }
 
-    public static List<GameObject> GetTriggerGameObjectByIds(List<GameObject> gameObjects, List<string> trigger)
+    public static List<GameObject> GetTriggerGameObjectByIds(List<GameObject> gameObjects, List<string> triggerIds)
     {
-        List<GameObject> triggerGameObjects = new List<GameObject>();
+        var triggerGameObjects = new List<GameObject>();
+        var idSet = new HashSet<string>(triggerIds);
+
         foreach (var obj in gameObjects)
         {
-            var triggerTileMapComponent = obj.GetComponent<TriggerableTileMapComponent>();
-            if (triggerTileMapComponent == null)
-                continue;
-
-            trigger.ForEach(t =>
+            var trigger = obj.GetComponent<TriggerableTileMapComponent>();
+            if (trigger != null && idSet.Contains(trigger.TriggerId))
             {
-                if (triggerTileMapComponent.TriggerId == t)
-                {
-                    triggerGameObjects.Add(obj);
-                }
-            });
+                triggerGameObjects.Add(obj);
+            }
         }
+
         return triggerGameObjects.Count > 0 ? triggerGameObjects : null;
     }
 

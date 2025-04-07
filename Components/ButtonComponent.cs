@@ -5,6 +5,6 @@ namespace uiia_adventure.Components;
 public class ButtonComponent : IComponent
 {
     public bool IsPressed = false;
-    public List<string> targetIds = new();
+    public List<string> TargetIds = new();
 
 }
