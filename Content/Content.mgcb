@@ -133,8 +133,6 @@
 /processorParam:Quality=Best
 /build:audio/theme.mp3
 
-<<<<<<< HEAD
-=======
 #begin cutscenes/ending.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -147,7 +145,6 @@
 /processorParam:TextureFormat=Color
 /build:cutscenes/ending.png
 
->>>>>>> 6baa2e1 (ending scene added)
 #begin cutscenes/page1.png
 /importer:TextureImporter
 /processor:TextureProcessor
