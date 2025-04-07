@@ -49,10 +49,13 @@ public class HazardSystem : SystemBase
             {
                 if (hazardTiles.Tiles.Contains(corner))
                 {
+<<<<<<< HEAD
                     if (Game1.deathSound != null)
                     {
                         Game1.deathSound.Play(1f, 0f, 0f); // 🔊 full volume, no pitch, no pan
                     }
+=======
+>>>>>>> 6a9ae56 (add death and respawn system)
                     RespawnManager.RespawnPlayers(gameObjects);
                     break;
                 }

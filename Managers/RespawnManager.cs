@@ -14,9 +14,14 @@ public static class RespawnManager
         foreach (var obj in gameObjects)
         {
             if (obj.Name == "MeowBow")
+<<<<<<< HEAD
             {
                 obj.Position = SpawnPoint;
             }
+=======
+                obj.Position = SpawnPoint;
+
+>>>>>>> 6a9ae56 (add death and respawn system)
             if (obj.Name == "MeowSword")
                 obj.Position = SpawnPoint + new Vector2(64, 0);
         }
