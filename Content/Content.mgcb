@@ -133,6 +133,18 @@
 /processorParam:TextureFormat=Color
 /build:map/background/background_2.PNG
 
+#begin audio/cat_jumping.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/cat_jumping.wav
+
+#begin audio/theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/theme.mp3
+
 #begin map/map1/tileset_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

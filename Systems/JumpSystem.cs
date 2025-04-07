@@ -34,6 +34,11 @@ public class JumpSystem : SystemBase
                 physics.IsGrounded = false;
                 jump.CooldownTimer = JumpCooldown;
                 jump.JumpStartY = obj.Position.Y;
+                var sound = obj.GetComponent<SoundComponent>();
+                if (sound != null && sound.JumpSound != null)
+                {
+                    sound.JumpSound.Play(sound.Volume, 0f, 0f);
+                }
             }
 
             float jumpHeightSoFar = jump.JumpStartY - obj.Position.Y;
