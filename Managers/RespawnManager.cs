@@ -14,8 +14,9 @@ public static class RespawnManager
         foreach (var obj in gameObjects)
         {
             if (obj.Name == "MeowBow")
+            {
                 obj.Position = SpawnPoint;
-
+            }
             if (obj.Name == "MeowSword")
                 obj.Position = SpawnPoint + new Vector2(64, 0);
         }
