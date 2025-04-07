@@ -61,6 +61,11 @@ public class EntityFactory
             JumpFrame = new Rectangle(0, 0, 64, 64),
         });
 
+        obj.AddComponent(new SoundComponent
+        {
+            JumpSound = Game1.JumpSound
+        });
+
         return obj;
     }
 
@@ -106,6 +111,11 @@ public class EntityFactory
                 new Rectangle(0, 448, 64, 64),
             },
             JumpFrame = new Rectangle(0, 0, 64, 64),
+        });
+
+        obj.AddComponent(new SoundComponent
+        {
+            JumpSound = Game1.JumpSound
         });
 
         return obj;

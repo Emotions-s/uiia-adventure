@@ -2,6 +2,7 @@
 
 using GameNamespace.Managers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using uiia_adventure.Globals;
 using uiia_adventure.Managers;
@@ -14,6 +15,8 @@ public class Game1 : Game
     private SceneManager _sceneManager;
 
     private RenderTarget2D _renderTarget;
+    public static SoundEffect JumpSound;
+
 
     public Game1()
     {
@@ -35,11 +38,13 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         var meowBowStandTexture = Content.Load<Texture2D>("animation/meawbow_stand");
-        var meowSwordStandTexture = Content.Load<Texture2D>("animation/meawsword_stand"); // adjust if filename differs
+        var meowSwordStandTexture = Content.Load<Texture2D>("animation/meawsword_stand");
         var meowSwordWalkTexture = Content.Load<Texture2D>("animation/meowsword_walk");
         var meowBowWalkTexture = Content.Load<Texture2D>("animation/meowbow_walk");
         var meowSwordJumpTexture = Content.Load<Texture2D>("animation/meowsword_jump");
         var meowBowJumpTexture = Content.Load<Texture2D>("animation/meowbow_jump");
+
+        JumpSound = Content.Load<SoundEffect>("audio/cat_jumping");
 
         CharacterManager characterManager = new();
         characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture);

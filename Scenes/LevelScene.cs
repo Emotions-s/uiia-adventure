@@ -22,6 +22,8 @@ public class LevelScene : SceneBase
     private readonly GraphicsDevice _graphics;
     private readonly ContentManager _content;
     private readonly SpriteBatch _spriteBatch;
+    private readonly SoundSystem _soundSystem = new();
+
 
     private GameObject _meowBow;
     private GameObject _meowSword;
@@ -66,6 +68,8 @@ public class LevelScene : SceneBase
     {
         var tileMapObject = _mapManager.LoadLevel(levelData, _content);
         var tileMap = tileMapObject.GetComponent<TileMapComponent>();
+        var musicPlayer = new GameObject();
+        
         _cameraSystem.SetMapWidthInTiles(tileMap.TilesPerRowMap);
 
         _gameObjects.Add(tileMapObject);
@@ -75,6 +79,16 @@ public class LevelScene : SceneBase
 
         _gameObjects.Add(_meowBow);
         _gameObjects.Add(_meowSword);
+        // Create music player object
+        musicPlayer.Name = "BackgroundMusic";
+        musicPlayer.AddComponent(new SoundComponent
+        {
+            BackgroundMusic = _content.Load<Microsoft.Xna.Framework.Media.Song>("audio/theme"),
+            Volume = 0.1f,
+            PlayMusicOnStart = true
+        });
+
+_gameObjects.Add(musicPlayer);
     }
 
     public override void Update(GameTime gameTime)
@@ -83,6 +97,7 @@ public class LevelScene : SceneBase
         {
             system.Update(gameTime, _gameObjects);
         }
+        _soundSystem.Update(gameTime, _gameObjects);
     }
 
     public override void Draw(GameTime gameTime)
