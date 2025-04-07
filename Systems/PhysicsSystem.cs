@@ -4,10 +4,17 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
+using uiia_adventure.Managers;
 
 public class PhysicsSystem : SystemBase
 {
     private const float Gravity = 1500f;
+    private readonly CameraSystem _cameraSystem;
+
+    public PhysicsSystem(CameraSystem cameraSystem)
+    {
+        _cameraSystem = cameraSystem;
+    }
 
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
@@ -16,14 +23,20 @@ public class PhysicsSystem : SystemBase
         foreach (var obj in gameObjects)
         {
             var physics = obj.GetComponent<PhysicsComponent>();
-            if (physics == null) continue;
+            var sprite = obj.GetComponent<SpriteComponent>();
+            if (physics == null || sprite == null) continue;
 
+            // Apply velocity to position
             obj.Position += physics.Velocity * dt;
 
-            if (!physics.IsGrounded) {
+            // Apply gravity
+            if (!physics.IsGrounded)
                 physics.Velocity.Y += Gravity * dt;
-            }
-            // System.Diagnostics.Debug.WriteLine($"Position.Y = {obj.Position.Y}, Velocity.Y = {physics.Velocity.Y}, IsGrounded = {physics.IsGrounded}");
+
+            // Clamp X position after physics is applied
+            float minX = _cameraSystem.CameraX;
+            float maxX = _cameraSystem.CameraX + ResolutionManager.VirtualWidth - sprite.SourceRect.Width;
+            obj.Position.X = MathHelper.Clamp(obj.Position.X, minX, maxX);
         }
     }
 }

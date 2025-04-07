@@ -1,13 +1,10 @@
-﻿using System.IO;
+﻿namespace uiia_adventure;
+
 using GameNamespace.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using uiia_adventure.Factories;
 using uiia_adventure.Globals;
 using uiia_adventure.Managers;
-using uiia_adventure.Systems;
-
-namespace uiia_adventure;
 
 public class Game1 : Game
 {
@@ -50,7 +47,7 @@ public class Game1 : Game
         LevelConfig.Load(Content);
 
         _sceneManager = new SceneManager(GraphicsDevice, Content, _spriteBatch, characterManager);
-        _sceneManager.ChangeScene(LevelConfig.GetLevelByName("1-2"), SceneType.Level);
+        _sceneManager.ChangeScene(LevelConfig.GetLevelByName("1-1"), SceneType.Level);
 
         _renderTarget = new RenderTarget2D(GraphicsDevice, ResolutionManager.VirtualWidth, ResolutionManager.VirtualHeight);
 

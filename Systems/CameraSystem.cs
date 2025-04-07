@@ -14,7 +14,7 @@ public class CameraSystem : SystemBase
     public Matrix Transform { get; private set; }
     public float CameraX { get; private set; }
 
-    public CameraSystem(int screenWidth, int screenHeight)
+    public CameraSystem(int screenWidth)
     {
         _screenWidth = screenWidth;
         _tileSize = GameConstants.TileSize;
@@ -40,10 +40,13 @@ public class CameraSystem : SystemBase
         if (meowBow == null || meowSword == null || _mapWidthInTiles == 0)
             return;
 
-        Vector2 midpoint = (meowBow.Position + meowSword.Position) / 2f;
-        float desiredX = midpoint.X - _screenWidth / 2f;
+        var meowBowSprite = meowBow.GetComponent<SpriteComponent>();
+        float midpointX = (meowBow.Position.X + meowSword.Position.X + meowBowSprite.SourceRect.Width) / 2f;
+
+        float desiredX = midpointX - _screenWidth / 2f;
         float maxX = (_mapWidthInTiles * _tileSize) - _screenWidth;
         CameraX = MathHelper.Clamp(desiredX, 0, maxX);
+
         Transform = Matrix.CreateTranslation(new Vector3(-CameraX, 0f, 0f));
     }
 }

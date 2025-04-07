@@ -37,14 +37,14 @@ public class LevelScene : SceneBase
 
     private void InitializeSystems()
     {
-        _cameraSystem = new CameraSystem(ResolutionManager.VirtualWidth, ResolutionManager.VirtualHeight);
+        _cameraSystem = new CameraSystem(ResolutionManager.VirtualWidth);
         // Order matters here
         _updateSystems.Add(_cameraSystem);
         _updateSystems.Add(new InputSystem());
-        _updateSystems.Add(new MovementSystem(_cameraSystem));
+        _updateSystems.Add(new MovementSystem());
         _updateSystems.Add(new JumpSystem());
         _updateSystems.Add(new CollisionSystem());
-        _updateSystems.Add(new PhysicsSystem());
+        _updateSystems.Add(new PhysicsSystem(_cameraSystem));
 
         _updateSystems.Add(new AnimationSystem());
 

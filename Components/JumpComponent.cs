@@ -1,7 +1,6 @@
-using System.Net.NetworkInformation;
-using uiia_adventure.Globals;
-
 namespace uiia_adventure.Components;
+
+using uiia_adventure.Globals;
 
 public class JumpComponent : IComponent
 {
