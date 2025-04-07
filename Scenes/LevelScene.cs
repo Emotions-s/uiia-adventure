@@ -45,6 +45,9 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new ClimbSystem());
         _updateSystems.Add(new CollisionSystem());
         _updateSystems.Add(new PhysicsSystem(_cameraSystem));
+        _updateSystems.Add(new HazardSystem());
+        _updateSystems.Add(new DeathSystem());
+
         _updateSystems.Add(new AnimationSystem());
 
         // Parallax
@@ -65,9 +68,10 @@ public class LevelScene : SceneBase
     public override void Load(LevelData levelData)
     {
         var tileMapObject = _mapManager.LoadLevel(levelData, _content);
+        RespawnManager.SpawnPoint = levelData.SpawnPoint;
         var tileMap = tileMapObject.GetComponent<TileMapComponent>();
         var musicPlayer = new GameObject();
-        
+
         _cameraSystem.SetMapWidthInTiles(tileMap.TilesPerRowMap);
 
         _gameObjects.Add(tileMapObject);
@@ -95,7 +99,8 @@ public class LevelScene : SceneBase
             PlayMusicOnStart = true
         });
 
-_gameObjects.Add(musicPlayer);
+        _gameObjects.Add(musicPlayer);
+        RespawnManager.RespawnPlayers(_gameObjects);
     }
 
     public override void Update(GameTime gameTime)

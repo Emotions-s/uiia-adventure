@@ -18,5 +18,7 @@ public class GameObject
 
     }
 
+    public void RemoveComponent<T>() where T : IComponent => Components.Remove(typeof(T));
+
     public bool HasComponent<T>() where T : IComponent => Components.ContainsKey(typeof(T));
 }

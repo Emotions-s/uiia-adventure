@@ -1,6 +1,7 @@
 namespace uiia_adventure.Managers;
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -20,6 +21,11 @@ public class MapManager
         // load hazard
         HazardTileComponent hazardTileComponent = new();
         hazardTileComponent.Tiles = loadTileCsvToPos(levelData.HazardPath);
+        // show all points of hazard
+        foreach (var point in hazardTileComponent.Tiles)
+        {
+            Debug.WriteLine($"Hazard Point: {point}");
+        }
         mapObj.AddComponent(hazardTileComponent);
 
         // load ground
@@ -62,7 +68,7 @@ public class MapManager
             for (int x = 0; x < cols; x++)
             {
                 int v = int.Parse(line[x]);
-                if (v > 0)
+                if (v >= 0)
                 {
                     grid[new Point(x, y)] = v;
                 }
@@ -99,7 +105,7 @@ public class MapManager
             for (int x = 0; x < cols; x++)
             {
                 int v = int.Parse(line[x]);
-                if (v > 0)
+                if (v >= 0)
                 {
                     points.Add(new Point(x, y));
                 }
