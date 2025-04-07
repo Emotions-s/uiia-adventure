@@ -57,7 +57,7 @@ public class Game1 : Game
         LevelConfig.Load(Content);
 
         _sceneManager = new SceneManager(GraphicsDevice, Content, _spriteBatch, characterManager);
-        //_sceneManager.ChangeScene(LevelConfig.GetLevelByName("test"), SceneType.Level);
+        _sceneManager.ChangeScene(LevelConfig.GetLevelByName("test"), SceneType.Level);
         //cut scene
         //_sceneManager.ChangeScene(new LevelData { LevelName = "IntroCutscene" }, SceneType.CutScene);
         //_sceneManager.ChangeScene(new LevelData { LevelName = "Ending" }, SceneType.CutScene);
