@@ -15,7 +15,8 @@ public class Game1 : Game
     private SceneManager _sceneManager;
 
     private RenderTarget2D _renderTarget;
-    public static SoundEffect JumpSound;
+    public static SoundEffect JumpSound1;
+    public static SoundEffect JumpSound2;
 
 
     public Game1()
@@ -44,7 +45,8 @@ public class Game1 : Game
         var meowSwordJumpTexture = Content.Load<Texture2D>("animation/meowsword_jump");
         var meowBowJumpTexture = Content.Load<Texture2D>("animation/meowbow_jump");
 
-        JumpSound = Content.Load<SoundEffect>("audio/cat_jumping");
+        JumpSound1 = Content.Load<SoundEffect>("audio/cat_jumping");
+        JumpSound2 = Content.Load<SoundEffect>("audio/cat_jumping2");
 
         CharacterManager characterManager = new();
         characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture);

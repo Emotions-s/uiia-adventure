@@ -63,7 +63,7 @@ public class EntityFactory
 
         obj.AddComponent(new SoundComponent
         {
-            JumpSound = Game1.JumpSound
+            JumpSound = Game1.JumpSound1
         });
 
         return obj;
@@ -115,7 +115,8 @@ public class EntityFactory
 
         obj.AddComponent(new SoundComponent
         {
-            JumpSound = Game1.JumpSound
+            JumpSound = Game1.JumpSound2,
+            Volume = 0.3f,
         });
 
         return obj;
