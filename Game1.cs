@@ -20,7 +20,7 @@ public class Game1 : Game
     public static SoundEffect JumpSound2;
     public static SoundEffect deathSound;
     private CharacterManager _characterManager;
-
+    private SceneFlowController _sceneFlowController;
 
     public Game1()
     {
@@ -41,29 +41,28 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        var meowBowStandTexture = Content.Load<Texture2D>("animation/meawbow_stand");
-        var meowSwordStandTexture = Content.Load<Texture2D>("animation/meawsword_stand");
-        var meowSwordWalkTexture = Content.Load<Texture2D>("animation/meowsword_walk");
-        var meowBowWalkTexture = Content.Load<Texture2D>("animation/meowbow_walk");
-        var meowSwordJumpTexture = Content.Load<Texture2D>("animation/meowsword_jump");
-        var meowBowJumpTexture = Content.Load<Texture2D>("animation/meowbow_jump");
-        var shootTexture = Content.Load<Texture2D>("animation/shooting");
-        var swordTexture = Content.Load<Texture2D>("animation/sword");
+        var meowBowStandTexture = ResourceCache.GetTexture2D("animation/meawbow_stand", Content);
+        var meowSwordStandTexture = ResourceCache.GetTexture2D("animation/meawsword_stand", Content);
+        var meowSwordWalkTexture = ResourceCache.GetTexture2D("animation/meowsword_walk", Content);
+        var meowBowWalkTexture = ResourceCache.GetTexture2D("animation/meowbow_walk", Content);
+        var meowSwordJumpTexture = ResourceCache.GetTexture2D("animation/meowsword_jump", Content);
+        var meowBowJumpTexture = ResourceCache.GetTexture2D("animation/meowbow_jump", Content);
+        var shootTexture = ResourceCache.GetTexture2D("animation/shooting", Content);
+        var swordTexture = ResourceCache.GetTexture2D("animation/sword", Content);
 
-        JumpSound1 = Content.Load<SoundEffect>("audio/cat_jumping");
-        JumpSound2 = Content.Load<SoundEffect>("audio/cat_jumping2");
-        deathSound = Content.Load<SoundEffect>("audio/cat_die");
-
+        JumpSound1 = ResourceCache.GetSoundEffect("audio/cat_jumping", Content);
+        JumpSound2 = ResourceCache.GetSoundEffect("audio/cat_jumping2", Content);
+        deathSound = ResourceCache.GetSoundEffect("audio/cat_die", Content);
 
         _characterManager = new CharacterManager();
         _characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture, shootTexture, swordTexture);
 
         // Create SceneManager
         _sceneManager = new SceneManager(GraphicsDevice, Content, _spriteBatch, _characterManager);
+        _sceneFlowController = new SceneFlowController(_sceneManager);
 
-        var arrowTexture = Content.Load<Texture2D>("sprite/arrow");
+        var arrowTexture = ResourceCache.GetTexture2D("sprite/arrow", Content);
         ProjectileFactory.Initialize(arrowTexture);
-
 
         _renderTarget = new RenderTarget2D(GraphicsDevice, ResolutionManager.VirtualWidth, ResolutionManager.VirtualHeight);
 
@@ -71,9 +70,7 @@ public class Game1 : Game
         pixel.SetData([Color.White]);
         GameConstants.Pixel = pixel;
 
-        // Load and start with the CutScene
-        var firstScene = LevelJsonLoader.LoadFromFile("../../../Content/Data/Levels/1-1.json");
-        _sceneManager.ChangeScene(firstScene, SceneType.Level);
+        _sceneFlowController.GoToNextScene();
     }
 
     protected override void Update(GameTime gameTime)

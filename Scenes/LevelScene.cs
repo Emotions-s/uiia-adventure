@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Security.AccessControl;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
 using uiia_adventure.Globals;
@@ -27,8 +26,9 @@ public class LevelScene : SceneBase
     private GameObject _meowBow;
     private GameObject _meowSword;
 
-    public LevelScene(GraphicsDevice graphics, ContentManager content, SpriteBatch spriteBatch)
+    public LevelScene(GraphicsDevice graphics, ContentManager content, SpriteBatch spriteBatch, SceneFlowController flowController)
     {
+        FlowController = flowController;
         _graphics = graphics;
         _content = content;
         _spriteBatch = spriteBatch;
@@ -56,6 +56,8 @@ public class LevelScene : SceneBase
 
         _updateSystems.Add(new AnimationSystem());
 
+        _updateSystems.Add(new DebugSkipSystem(FlowController));
+
         // Parallax
         _renderSystems.Add(new ParallaxSystem(_spriteBatch, _cameraSystem));
         // Parallax
@@ -64,7 +66,7 @@ public class LevelScene : SceneBase
         _renderSystems.Add(new RenderSystem(_spriteBatch));
 
         // Uncomment this line to add the debug render system
-        _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
+        // _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
     }
 
     public void SetPlayers(GameObject bow, GameObject sword)
@@ -86,8 +88,9 @@ public class LevelScene : SceneBase
         RespawnManager.SpawnPoint = new Vector2(levelData.SpawnPoint[0], levelData.SpawnPoint[1]);
 
         // Add parallax background
-        var bg1 = _content.Load<Texture2D>("map/background/background_1");
-        var bg2 = _content.Load<Texture2D>("map/background/background_2");
+        var bg1 = ResourceCache.GetTexture2D("map/background/background_1", _content);
+        var bg2 = ResourceCache.GetTexture2D("map/background/background_2", _content);
+
         var parallaxObj = new GameObject
         {
             Name = "Parallax",
@@ -97,8 +100,8 @@ public class LevelScene : SceneBase
         _gameObjects.Add(parallaxObj);
 
         // Add HUD texture refs (optional)
-        hud1 = _content.Load<Texture2D>("map/HUD/Sword_Key");
-        hud2 = _content.Load<Texture2D>("map/HUD/Bow_Key");
+        hud1 = ResourceCache.GetTexture2D("map/HUD/Sword_Key", _content);
+        hud2 = ResourceCache.GetTexture2D("map/HUD/Bow_Key", _content);
 
         // Add player characters
         _gameObjects.Add(_meowBow);
@@ -123,6 +126,8 @@ public class LevelScene : SceneBase
                 _gameObjects.Add(obj);
             }
         }
+
+
         // Respawn system
         RespawnManager.RespawnPlayers(_gameObjects);
     }

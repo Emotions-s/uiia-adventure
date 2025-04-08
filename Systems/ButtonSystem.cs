@@ -19,7 +19,12 @@ public class ButtonSystem : SystemBase
 
             if (ButtonComponent.IsPressed)
             {
+                SpriteComponent.RenderSource = ButtonComponent.PressedFrame;
                 continue;
+            }
+            else
+            {
+                SpriteComponent.RenderSource = ButtonComponent.NormalFrame;
             }
 
             List<GameObject> otherSpriteObj = SystemHelper.getGameObjectsByType<SpriteComponent>(gameObjects);

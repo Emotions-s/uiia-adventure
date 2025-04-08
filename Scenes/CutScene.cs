@@ -40,19 +40,19 @@ namespace uiia_adventure.Scenes
         {
             if (levelData.LevelName == "Ending")
             {
-                _pages = new Texture2D[]
-                {
+                _pages =
+                [
                     _content.Load<Texture2D>("cutscenes/ending")
-                };
+                ];
             }
             else
             {
-                _pages = new Texture2D[]
-                {
+                _pages =
+                [
                     _content.Load<Texture2D>("cutscenes/page1"),
                     _content.Load<Texture2D>("cutscenes/page2"),
                     _content.Load<Texture2D>("cutscenes/page3")
-                };
+                ];
             }
 
             // Start with fade-in
@@ -69,6 +69,11 @@ namespace uiia_adventure.Scenes
             {
                 if (current.IsKeyDown(Keys.Right) && !_previousState.IsKeyDown(Keys.Right))
                 {
+                    if (_currentPage == _pages.Length - 1)
+                    {
+                        FlowController.GoToNextScene();
+                        return;
+                    }
                     int nextPage = MathHelper.Clamp(_currentPage + 1, 0, _pages.Length - 1);
                     if (nextPage != _currentPage)
                     {

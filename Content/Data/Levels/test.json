@@ -1,0 +1,37 @@
+{
+    "levelName": "test",
+    "basePath": "../../../Content/",
+    "tilesetPath": "map/map1/tileset_1",
+    "tilemapPath": "map/map1/tilemap_test.csv",
+    "groundPath": "map/map1/ground_test.csv",
+    "wallPath": "map/map1/wall_test.csv",
+    "ladderPath": "map/map1/ladder_test.csv",
+    "hazardPath": "map/map1/hazard_test.csv",
+    "spawnPoint": [64, 700],
+    "finishPoint": [960, 576],
+    "objects": [
+      {
+        "type": "box",
+        "position": [192, 800],
+        "texture": "sprite/box",
+        "size": [64, 64]
+      },
+      {
+        "type": "button",
+        "position": [672, 704],
+        "texture": "sprite/button",
+        "size": [64, 64],
+        "targets": ["ladder1"]
+      },
+      {
+        "type": "triggerLadder",
+        "triggerId": "ladder1",
+        "tiles": {
+          "9,8": 32,
+          "9,9": 32,
+          "9,10": 32,
+          "9,11": 32
+        }
+      }
+    ]
+  }
