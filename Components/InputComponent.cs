@@ -12,6 +12,7 @@ class InputComponent : IComponent
     public int MoveDirection = 0; // -1 for left, 1 for right
     public bool WantsToJump = false;
     public bool ActionPressed = false;
+    public bool TriggerShootSequence = false;
     public Keys? LastDirectionKeyPressed = null;
 
 }

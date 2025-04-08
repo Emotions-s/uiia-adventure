@@ -27,9 +27,32 @@ namespace uiia_adventure.Systems
                     sprite.FlipHorizontally = false;
                 else if (input.LastDirectionKeyPressed == input.Left)
                     sprite.FlipHorizontally = true;
-
                 walkAnim.MoveDirection = input.MoveDirection;
+                /////
+                // Start shooting sequence
+                if (input.ActionPressed)
+                {
+                    walkAnim.ShootFrameTimer += dt;
 
+                    if (walkAnim.ShootFrameTimer >= walkAnim.ShootFrameSpeed)
+                    {
+                        walkAnim.ShootFrameTimer = 0f;
+                        walkAnim.ShootFrameIndex++;
+
+                        if (walkAnim.ShootFrameIndex >= walkAnim.ShootFrames.Count)
+                        {
+                            input.ActionPressed = false;
+                            walkAnim.ShootFrameIndex = 0;
+                        }
+                    }
+
+                    if (walkAnim.ShootFrameIndex < walkAnim.ShootFrames.Count)
+                    {
+                        sprite.Texture = walkAnim.ShootTexture;
+                        sprite.RenderSource = walkAnim.ShootFrames[walkAnim.ShootFrameIndex];
+                        return;
+                    }
+                }
                 if (!physics.IsGrounded) {
                     sprite.Texture = walkAnim.JumpTexture;
                     sprite.RenderSource = walkAnim.JumpFrame;

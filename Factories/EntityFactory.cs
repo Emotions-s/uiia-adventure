@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public class EntityFactory
 {
-    public static GameObject CreateMeowBow(Vector2 position, Texture2D texture, Texture2D walkTexture, Texture2D jumpTexture)
+    public static GameObject CreateMeowBow(Vector2 position, Texture2D texture, Texture2D walkTexture, Texture2D jumpTexture, Texture2D shootTexture)
     {
         var obj = new GameObject();
         obj.Name = GameConstants.MeowBowName;
@@ -44,6 +44,7 @@ public class EntityFactory
             IdleTexture = texture,
             WalkTexture = walkTexture,
             JumpTexture = jumpTexture,
+            ShootTexture = shootTexture,
             Frames = new List<Rectangle>
             {
                 new Rectangle(0, 0, 64, 64),
@@ -56,7 +57,14 @@ public class EntityFactory
                 new Rectangle(0, 448, 64, 64),
             },
             JumpFrame = new Rectangle(0, 0, 64, 64),
+            ShootFrames = new List<Rectangle>
+            {
+                new Rectangle(0, 0, 64, 64),
+                new Rectangle(0, 64, 64, 64),
+                new Rectangle(0, 128, 64, 64),
+            },
         });
+
 
         obj.AddComponent(new SoundComponent
         {
@@ -67,7 +75,7 @@ public class EntityFactory
         return obj;
     }
 
-    public static GameObject CreateMeowSword(Vector2 position, Texture2D texture, Texture2D walkTexture, Texture2D jumpTexture)
+    public static GameObject CreateMeowSword(Vector2 position, Texture2D texture, Texture2D walkTexture, Texture2D jumpTexture, Texture2D shootTexture)
     {
         var obj = new GameObject();
         obj.Name = GameConstants.MeowSwordName;
@@ -96,6 +104,7 @@ public class EntityFactory
             IdleTexture = texture,
             WalkTexture = walkTexture,
             JumpTexture = jumpTexture,
+            ShootTexture = shootTexture,
 
             Frames = new List<Rectangle>
             {
@@ -109,6 +118,12 @@ public class EntityFactory
                 new Rectangle(0, 448, 64, 64),
             },
             JumpFrame = new Rectangle(0, 0, 64, 64),
+            ShootFrames = new List<Rectangle>
+            {
+                new Rectangle(0, 0, 64, 64),
+                new Rectangle(0, 64, 64, 64),
+                new Rectangle(0, 128, 64, 64),
+            },
         });
 
         obj.AddComponent(new CanPushComponent());

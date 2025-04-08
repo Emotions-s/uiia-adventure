@@ -20,5 +20,11 @@ namespace uiia_adventure.Components
         public Texture2D WalkTexture;
         public Texture2D JumpTexture;
         public Rectangle JumpFrame;
+
+        public Texture2D ShootTexture;
+        public List<Rectangle> ShootFrames = new();
+        public int ShootFrameIndex = 0;
+        public float ShootFrameTimer = 0f;
+        public float ShootFrameSpeed = 0.2f;
     }
 }

@@ -10,10 +10,10 @@ public class CharacterManager
     public GameObject MeowBow { get; private set; }
     public GameObject MeowSword { get; private set; }
 
-    public void Initialize(Texture2D bowTexture, Texture2D swordTexture,  Texture2D SWalkTexture, Texture2D BWalkTexture,  Texture2D SJumpTexture, Texture2D BJumpTexture)
+    public void Initialize(Texture2D bowTexture, Texture2D swordTexture,  Texture2D SWalkTexture, Texture2D BWalkTexture,  Texture2D SJumpTexture, Texture2D BJumpTexture, Texture2D BShooting, Texture2D SShooting)
     {
-        MeowBow = EntityFactory.CreateMeowBow(Vector2.Zero, bowTexture, BWalkTexture, BJumpTexture);
-        MeowSword = EntityFactory.CreateMeowSword(Vector2.Zero, swordTexture, SWalkTexture, SJumpTexture);
+        MeowBow = EntityFactory.CreateMeowBow(Vector2.Zero, bowTexture, BWalkTexture, BJumpTexture, BShooting);
+        MeowSword = EntityFactory.CreateMeowSword(Vector2.Zero, swordTexture, SWalkTexture, SJumpTexture, SShooting);
     }
 
     public void SetSpawnPosition(Vector2 bowPos, Vector2 swordPos)

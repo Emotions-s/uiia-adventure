@@ -46,6 +46,8 @@ public class Game1 : Game
         var meowBowWalkTexture = Content.Load<Texture2D>("animation/meowbow_walk");
         var meowSwordJumpTexture = Content.Load<Texture2D>("animation/meowsword_jump");
         var meowBowJumpTexture = Content.Load<Texture2D>("animation/meowbow_jump");
+        var shootTexture = Content.Load<Texture2D>("animation/shooting");
+        var swordTexture = Content.Load<Texture2D>("animation/sword");
 
         JumpSound1 = Content.Load<SoundEffect>("audio/cat_jumping");
         JumpSound2 = Content.Load<SoundEffect>("audio/cat_jumping2");
@@ -53,7 +55,7 @@ public class Game1 : Game
 
 
         CharacterManager characterManager = new();
-        characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture);
+        characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture, shootTexture, swordTexture);
 
         LevelConfig.Load(Content);
 

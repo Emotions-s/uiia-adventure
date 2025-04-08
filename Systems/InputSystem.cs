@@ -37,7 +37,10 @@ public class InputSystem : SystemBase
             {
                 input.WantsToJump = true;
             }
-
+            if (state.IsKeyDown(input.Action))
+            {
+                input.ActionPressed = true;
+            }
             if (state.IsKeyDown(input.Action))
             {
                 input.ActionPressed = true;
