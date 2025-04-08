@@ -39,21 +39,21 @@
         {
             "type": "breakableBox",
             "position": [1792, 576],
-            "texture": "sprite/box",
+            "texture": "sprite/breakable_box",
             "size": [64, 384],
             "health": 3
         },
         {
             "type": "breakableBox",
             "position": [3712, 0],
-            "texture": "sprite/box",
+            "texture": "sprite/breakable_box",
             "size": [64, 384],
             "health": 3
         },
         {
             "type": "breakableBox",
             "position": [5824, 384],
-            "texture": "sprite/box",
+            "texture": "sprite/breakable_box",
             "size": [64, 320],
             "health": 3
         },

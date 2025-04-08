@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using uiia_adventure.Components;

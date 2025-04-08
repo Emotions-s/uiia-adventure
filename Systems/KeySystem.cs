@@ -45,6 +45,7 @@ public class KeySystem : SystemBase
 
                 if (CollisionHelper.ObjectVsObject(player, key))
                 {
+                    // add sound here
                     inventoryComp.HaveToCollect--;
                     spriteKey.RenderSource = Rectangle.Empty;
                     keyComp.IsCollected = true;

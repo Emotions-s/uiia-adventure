@@ -1,8 +1,6 @@
 namespace uiia_adventure.Systems;
 
-using System;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using Microsoft.Xna.Framework;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
@@ -33,6 +31,7 @@ public class DoorSystem : SystemBase
 
         if (keyInventoryComponent.HaveToCollect == 0)
         {
+            // add sound here
             doorComponent.IsOpen = true;
             doorObject.GetComponent<SpriteComponent>().RenderSource = new Rectangle(0, 64, 64, 64);
         }

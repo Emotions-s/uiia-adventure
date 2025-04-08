@@ -325,6 +325,18 @@
 /processorParam:TextureFormat=Color
 /build:sprite/box.png
 
+#begin sprite/breakable_box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:sprite/breakable_box.png
+
 #begin sprite/button.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -337,6 +349,18 @@
 /processorParam:TextureFormat=Color
 /build:sprite/button.png
 
+#begin sprite/door.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:sprite/door.png
+
 #begin sprite/fireball.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -348,6 +372,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:sprite/fireball.png
+
+#begin sprite/key.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:sprite/key.png
 
 #begin sprite/turret.png
 /importer:TextureImporter

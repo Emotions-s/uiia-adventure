@@ -21,7 +21,7 @@
     {
       "type": "breakableBox",
       "position": [2496, 576],
-      "texture": "sprite/box",
+      "texture": "sprite/breakable_box",
       "size": [64, 448],
       "health": 3
     },

@@ -64,13 +64,11 @@ public class LevelScene : SceneBase
 
         // Parallax
         _renderSystems.Add(new ParallaxSystem(_spriteBatch, _cameraSystem));
-        // Parallax
-        _renderSystems.Add(new ParallaxSystem(_spriteBatch, _cameraSystem));
         _renderSystems.Add(new TileRenderSystem(_spriteBatch));
         _renderSystems.Add(new RenderSystem(_spriteBatch));
 
         // Uncomment this line to add the debug render system
-        _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
+        // _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
     }
 
     public void SetPlayers(GameObject bow, GameObject sword)

@@ -39,7 +39,7 @@
         {
             "type": "breakableBox",
             "position": [448, 640],
-            "texture": "sprite/box",
+            "texture": "sprite/breakable_box",
             "size": [64, 320],
             "health": 3
         },

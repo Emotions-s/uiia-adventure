@@ -22,7 +22,6 @@ public class ButtonSystem : SystemBase
             if (ButtonComponent.IsPressed)
             {
                 SpriteComponent.RenderSource = ButtonComponent.PressedFrame;
-                _buttonSound?.Play();
                 continue;
             }
             else
@@ -51,10 +50,13 @@ public class ButtonSystem : SystemBase
 
                 ButtonComponent.IsPressed = true;
 
+                _buttonSound?.Play();
+
                 var triggerObj = SystemHelper.GetTriggerGameObjectByIds(gameObjects, ButtonComponent.TargetIds);
                 if (triggerObj == null)
                     continue;
 
+                // add sound here
                 triggerObj.ForEach(target =>
                     {
                         var triggerableTileMapComponent = target.GetComponent<TriggerableTileMapComponent>();
