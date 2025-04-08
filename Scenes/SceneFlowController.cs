@@ -20,7 +20,19 @@ public class SceneFlowController
 
     private void LoadSceneFlow()
     {
-        var json = File.ReadAllText("../../../Content/Data/game_flow.json");
+        string path = "Data/game_flow.json";
+
+        string basePath;
+
+#if DEBUG
+        basePath = Path.Combine(AppContext.BaseDirectory, "../../../Content");
+#else
+    basePath = Path.Combine(AppContext.BaseDirectory, "Content");
+#endif
+
+        string jsonPath = Path.Combine(basePath, path);
+
+        var json = File.ReadAllText(jsonPath);
 
         var options = new JsonSerializerOptions
         {
@@ -40,13 +52,7 @@ public class SceneFlowController
     {
         _currentIndex++;
 
-        if (_currentIndex >= _sceneSequence.Count)
-            return;
-
-        var next = _sceneSequence[_currentIndex];
-
-        var levelData = LevelJsonLoader.LoadFromFile(next.Path);
-        _sceneManager.ChangeScene(levelData, next.SceneType, this);
+        RestartScene();
     }
 
     public void RestartScene()
@@ -55,6 +61,7 @@ public class SceneFlowController
             return;
 
         var current = _sceneSequence[_currentIndex];
+
         var levelData = LevelJsonLoader.LoadFromFile(current.Path);
         _sceneManager.ChangeScene(levelData, current.SceneType, this);
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 public class LevelJsonModel
 {
     public string LevelName { get; set; }
-    public string BasePath { get; set; }
     public string TilesetPath { get; set; }
     public string TilemapPath { get; set; }
     public string GroundPath { get; set; }

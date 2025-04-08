@@ -1,6 +1,5 @@
 {
   "levelName": "1-2",
-  "basePath": "../../../Content/",
   "tilesetPath": "map/map1/tileset_1",
   "tilemapPath": "map/map1/tilemap_1_2.csv",
   "groundPath": "map/map1/ground_1_2.csv",
@@ -9,7 +8,7 @@
   "hazardPath": "map/map1/hazard_1_2.csv",
   "spawnPoint": [64, 700],
   "finishPoint": [5056, 896],
-  "keys": ["768,64"],
+  "keys": ["1280,832"],
   "objects": [
     {
       "type": "button",

@@ -1,5 +1,6 @@
 namespace uiia_adventure.Managers;
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -16,29 +17,36 @@ public class MapManager
         GameObject mapObj = new GameObject();
         mapObj.Name = GameConstants.TileMapName;
 
+        string basePath;
+#if DEBUG
+        basePath = Path.Combine(AppContext.BaseDirectory, "../../../Content");
+#else
+    basePath = Path.Combine(AppContext.BaseDirectory, "Content");
+#endif
+
         // load hazard
         HazardTileComponent hazardTileComponent = new();
-        hazardTileComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.HazardPath);
+        hazardTileComponent.Tiles = loadTileCsvToPos(Path.Combine(basePath, levelData.HazardPath));
         // show all points of hazard
         mapObj.AddComponent(hazardTileComponent);
 
         // load ground
         GroundTileComponent groundTileComponent = new();
-        groundTileComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.GroundPath);
+        groundTileComponent.Tiles = loadTileCsvToPos(Path.Combine(basePath, levelData.GroundPath));
         mapObj.AddComponent(groundTileComponent);
 
         // load wall
         WallTileComponent wallTileComponent = new();
-        wallTileComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.WallPath);
+        wallTileComponent.Tiles = loadTileCsvToPos(Path.Combine(basePath, levelData.WallPath));
         mapObj.AddComponent(wallTileComponent);
 
         // load ladder
         LadderComponent ladderComponent = new();
-        ladderComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.LadderPath);
+        ladderComponent.Tiles = loadTileCsvToPos(Path.Combine(basePath, levelData.LadderPath));
         mapObj.AddComponent(ladderComponent);
 
         // load map
-        TileMapComponent tileMapComponent = LoadTileMapCsvToComponent(levelData.BasePath + levelData.TilemapPath);
+        TileMapComponent tileMapComponent = LoadTileMapCsvToComponent(Path.Combine(basePath, levelData.TilemapPath));
         Texture2D tileset = ResourceCache.GetTexture2D(levelData.TilesetPath, content);
         tileMapComponent.Tileset = tileset;
         tileMapComponent.TilesPerRowSet = tileset.Width / tileMapComponent.TileWidth;

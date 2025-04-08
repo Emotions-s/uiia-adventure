@@ -1,8 +1,8 @@
 [
-    { "sceneType": "CutScene", "path": "../../../Content/Data/Scenes/start.json" },
-    { "sceneType": "Level", "path": "../../../Content/Data/Levels/1-1.json" },
-    { "sceneType": "Level", "path": "../../../Content/Data/Levels/1-2.json" },
-    { "sceneType": "Level", "path": "../../../Content/Data/Levels/1-3.json" },
-    { "sceneType": "CutScene", "path": "../../../Content/Data/Scenes/end.json" },
-    { "sceneType": "Credits", "path": "../../../Content/Data/Scenes/credits.json" }
+    { "sceneType": "CutScene", "path": "Data/Scenes/start.json" },
+    { "sceneType": "Level", "path": "Data/Levels/1-1.json" },
+    { "sceneType": "Level", "path": "Data/Levels/1-2.json" },
+    { "sceneType": "Level", "path": "Data/Levels/1-3.json" },
+    { "sceneType": "CutScene", "path": "Data/Scenes/end.json" },
+    { "sceneType": "Credits", "path": "Data/Scenes/credits.json" }
 ]
