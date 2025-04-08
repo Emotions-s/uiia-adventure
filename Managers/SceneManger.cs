@@ -35,7 +35,7 @@ public class SceneManager
         _characterManager = characterManager;
     }
 
-    public void ChangeScene(LevelJsonModel levelData, SceneType type)
+    public void ChangeScene(LevelJsonModel levelData, SceneType type, SceneFlowController flowController)
     {
         if (_loadedScenes.TryGetValue(levelData.LevelName, out var scene))
         {
@@ -46,7 +46,7 @@ public class SceneManager
         switch (type)
         {
             case SceneType.Level:
-                LevelScene levelScene = new(_graphics, _content, _spriteBatch);
+                LevelScene levelScene = new(_graphics, _content, _spriteBatch, flowController);
                 levelScene.SetPlayers(_characterManager.MeowBow, _characterManager.MeowSword);
                 levelScene.Load(levelData);
                 _currentScene = levelScene;
@@ -54,16 +54,18 @@ public class SceneManager
                 break;
             case SceneType.CutScene:
                 CutScene cutScene = new(_graphics, _content, _spriteBatch);
+                cutScene.FlowController = flowController;
                 _currentScene = cutScene;
                 _loadedScenes[levelData.LevelName] = cutScene;
                 _currentScene.Load(levelData);
                 break;
             case SceneType.Credits:
                 var creditsScene = new CreditsScene(_graphics, _content, _spriteBatch);
+                creditsScene.FlowController = flowController;
                 _currentScene = creditsScene;
                 _loadedScenes[levelData.LevelName] = creditsScene;
                 _currentScene.Load(levelData);
-            break;
+                break;
         }
     }
 

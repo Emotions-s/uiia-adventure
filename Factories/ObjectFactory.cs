@@ -33,7 +33,7 @@ public static class ObjectFactory
                 obj.AddComponent(new PushableComponent());
                 if (data.Texture == null)
                 {
-                    texture = TextureCache.Get("sprite/box", content);
+                    texture = ResourceCache.GetTexture2D("sprite/box", content);
                 }
                 obj.AddComponent(new PhysicsComponent());
                 break;
@@ -49,7 +49,7 @@ public static class ObjectFactory
 
                 if (data.Texture == null)
                 {
-                    texture = TextureCache.Get("sprite/box", content);
+                    texture = ResourceCache.GetTexture2D("sprite/box", content);
                 }
                 break;
 
@@ -63,7 +63,7 @@ public static class ObjectFactory
                 });
                 if (data.Texture == null)
                 {
-                    texture = TextureCache.Get("sprite/button", content);
+                    texture = ResourceCache.GetTexture2D("sprite/button", content);
                 }
                 break;
 
@@ -83,14 +83,14 @@ public static class ObjectFactory
 
         if (texture == null && !string.IsNullOrEmpty(data.Texture))
         {
-            texture = TextureCache.Get(data.Texture, content);
+            texture = ResourceCache.GetTexture2D(data.Texture, content);
             Rectangle source = new(0, 0, data.Size?[0] ?? 64, data.Size?[1] ?? 64);
         }
 
         // Sprite
         if (!string.IsNullOrEmpty(data.Texture))
         {
-            texture = TextureCache.Get(data.Texture, content);
+            texture = ResourceCache.GetTexture2D(data.Texture, content);
 
             obj.AddComponent(new SpriteComponent
             {

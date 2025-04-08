@@ -35,13 +35,12 @@ public class MapManager
 
         // load ladder
         LadderComponent ladderComponent = new();
-        Console.WriteLine("Ladder Path: " + levelData.BasePath + levelData.LadderPath);
         ladderComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.LadderPath);
         mapObj.AddComponent(ladderComponent);
 
         // load map
         TileMapComponent tileMapComponent = LoadTileMapCsvToComponent(levelData.BasePath + levelData.TilemapPath);
-        Texture2D tileset = TilesetCache.GetTileset(levelData.TilesetPath, content);
+        Texture2D tileset = ResourceCache.GetTexture2D(levelData.TilesetPath, content);
         tileMapComponent.Tileset = tileset;
         tileMapComponent.TilesPerRowSet = tileset.Width / tileMapComponent.TileWidth;
         mapObj.AddComponent(tileMapComponent);
