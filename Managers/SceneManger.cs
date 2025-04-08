@@ -62,9 +62,9 @@ public class SceneManager
                 var creditsScene = new CreditsScene(_graphics, _content, _spriteBatch);
                 _currentScene = creditsScene;
                 _loadedScenes[levelData.LevelName] = creditsScene;
+                _currentScene.Load(levelData);
             break;
         }
-        _currentScene.Load(levelData);
     }
 
     public void Update(GameTime gameTime)
