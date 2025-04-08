@@ -72,7 +72,7 @@ public class Game1 : Game
         GameConstants.Pixel = pixel;
 
         // Load and start with the CutScene
-        var firstScene = LevelJsonLoader.LoadFromFile("../../../Content/Data/Levels/1-1.json");
+        var firstScene = LevelJsonLoader.LoadFromFile("../../../Content/Data/Levels/test.json");
         _sceneManager.ChangeScene(firstScene, SceneType.Level);
     }
 

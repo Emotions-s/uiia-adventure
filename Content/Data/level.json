@@ -1,7 +1,7 @@
 [
     {
         "tilesetPath": "map/map1/tileset_1",
-        "basePath": "../../../Content/",
+        "basePath": "Content/",
         "submap": [
             {
                 "levelName": "1-1",
