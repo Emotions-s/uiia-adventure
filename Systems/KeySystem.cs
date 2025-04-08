@@ -9,8 +9,18 @@ using System;
 
 public class KeySystem : SystemBase
 {
+    private float animationTimer = 0f;
+    private float animationSpeed = 0.3f;
+    private bool toggleFrame = false;
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
+        animationTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+        if (animationTimer >= animationSpeed)
+        {
+            animationTimer = 0f;
+            toggleFrame = !toggleFrame;
+        }
+        
         var keys = gameObjects.Where(o => o.HasComponent<KeyComponent>()).ToList();
         var players = SystemHelper.GetPlayerGameObjects(gameObjects);
         var inventory = gameObjects.Find(o => o.HasComponent<KeyInventoryComponent>());
@@ -23,6 +33,8 @@ public class KeySystem : SystemBase
             if (keyComp == null || keyComp.IsCollected) continue;
             var spriteKey = key.GetComponent<SpriteComponent>();
             if (keyComp == null || spriteKey == null) continue;
+            // Animate key
+            spriteKey.RenderSource = toggleFrame ? keyComp.frame1 : keyComp.frame2;
 
             foreach (var player in players)
             {
