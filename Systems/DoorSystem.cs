@@ -1,6 +1,8 @@
 namespace uiia_adventure.Systems;
 
+using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using Microsoft.Xna.Framework;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
@@ -32,7 +34,7 @@ public class DoorSystem : SystemBase
         if (keyInventoryComponent.HaveToCollect == 0)
         {
             doorComponent.IsOpen = true;
-            doorObject.GetComponent<SpriteComponent>().SourceRect = new Rectangle(0, 64, 64, 64);
+            doorObject.GetComponent<SpriteComponent>().RenderSource = new Rectangle(0, 64, 64, 64);
         }
     }
 }

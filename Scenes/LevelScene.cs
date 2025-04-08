@@ -104,10 +104,6 @@ public class LevelScene : SceneBase
         hud1 = ResourceCache.GetTexture2D("map/HUD/Sword_Key", _content);
         hud2 = ResourceCache.GetTexture2D("map/HUD/Bow_Key", _content);
 
-        // Add player characters
-        _gameObjects.Add(_meowBow);
-        _gameObjects.Add(_meowSword);
-
         _meowBow.Position = new Vector2(levelData.SpawnPoint[0], levelData.SpawnPoint[1]);
         _meowSword.Position = new Vector2(levelData.SpawnPoint[0] + GameConstants.TileSize, levelData.SpawnPoint[1]);
 
@@ -152,7 +148,8 @@ public class LevelScene : SceneBase
                 Position = new Vector2(p.X, p.Y),
             };
             keyObj.AddComponent(new KeyComponent());
-            keyObj.AddComponent(new SpriteComponent(){
+            keyObj.AddComponent(new SpriteComponent()
+            {
                 Texture = ResourceCache.GetTexture2D("sprite/key", _content),
                 SourceRect = new Rectangle(0, 0, GameConstants.TileSize, GameConstants.TileSize),
                 RenderSource = new Rectangle(0, 0, GameConstants.TileSize, GameConstants.TileSize),
@@ -166,7 +163,8 @@ public class LevelScene : SceneBase
             Name = "KeyInventory",
             Position = new Vector2(0, 0),
         };
-        keyInventory.AddComponent(new KeyInventoryComponent() {
+        keyInventory.AddComponent(new KeyInventoryComponent()
+        {
             HaveToCollect = levelData.Keys.Count,
         });
         _gameObjects.Add(keyInventory);
@@ -185,6 +183,10 @@ public class LevelScene : SceneBase
             RenderSource = new Rectangle(0, 0, GameConstants.TileSize, GameConstants.TileSize),
         });
         _gameObjects.Add(doorObj);
+
+        // Add player characters
+        _gameObjects.Add(_meowBow);
+        _gameObjects.Add(_meowSword);
     }
 
     public override void Update(GameTime gameTime)
