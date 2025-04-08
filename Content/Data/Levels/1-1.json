@@ -9,7 +9,7 @@
     "hazardPath": "map/map1/hazard_1_1.csv",
     "spawnPoint": [64, 768],
     "finishPoint": [3776, 896],
-    "keys": ["3400, 896", "3600, 896", "64,900"],
+    "keys": ["3520, 896"],
     "objects": [
         {
             "type": "box",

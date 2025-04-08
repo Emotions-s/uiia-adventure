@@ -8,35 +8,14 @@
     "ladderPath": "map/map1/ladder_1_3.csv",
     "hazardPath": "map/map1/hazard_1_3.csv",
     "spawnPoint": [64, 896],
-    "finishPoint": [6400, 640],
-    "keys": ["3400,896", "3600,896", "64,900"],
+    "finishPoint": [6336, 640],
+    "keys": ["64,320", "1152,704", "5184,640"],
     "objects": [
         {
             "type": "box",
             "position": [1280, 128],
             "texture": "sprite/box",
             "size": [64, 64]
-        },
-        {
-            "type": "button",
-            "position": [64, 320],
-            "texture": "sprite/button",
-            "size": [64, 64],
-            "targets": ["key1"]
-        },
-        {
-            "type": "button",
-            "position": [1152, 704],
-            "texture": "sprite/button",
-            "size": [64, 64],
-            "targets": ["key2"]
-        },
-        {
-            "type": "button",
-            "position": [5184, 640],
-            "texture": "sprite/button",
-            "size": [64, 64],
-            "targets": ["key3"]
         },
         {
             "type": "button",
