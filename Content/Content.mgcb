@@ -133,6 +133,12 @@
 /processorParam:TextureFormat=Color
 /build:animation/sword.png
 
+#begin audio/button.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/button.wav
+
 #begin audio/cat_die.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -150,6 +156,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:audio/cat_jumping2.wav
+
+#begin audio/collect_key.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/collect_key.wav
 
 #begin audio/credits_song.mp3
 /importer:Mp3Importer
@@ -325,18 +337,6 @@
 /processorParam:TextureFormat=Color
 /build:sprite/button.png
 
-#begin sprite/door.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:sprite/door.png
-
 #begin sprite/fireball.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -348,18 +348,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:sprite/fireball.png
-
-#begin sprite/key.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:sprite/key.png
 
 #begin sprite/turret.png
 /importer:TextureImporter

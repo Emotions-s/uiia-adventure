@@ -2,6 +2,7 @@ namespace uiia_adventure.Systems;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using uiia_adventure.Core;
 using uiia_adventure.Components;
 using uiia_adventure.Globals;
@@ -12,6 +13,7 @@ public class KeySystem : SystemBase
     private float animationTimer = 0f;
     private float animationSpeed = 0.3f;
     private bool toggleFrame = false;
+    private static SoundEffect? _collectSound = Game1.collectSound;
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
         animationTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -20,7 +22,7 @@ public class KeySystem : SystemBase
             animationTimer = 0f;
             toggleFrame = !toggleFrame;
         }
-        
+
         var keys = gameObjects.Where(o => o.HasComponent<KeyComponent>()).ToList();
         var players = SystemHelper.GetPlayerGameObjects(gameObjects);
         var inventory = gameObjects.Find(o => o.HasComponent<KeyInventoryComponent>());
@@ -46,6 +48,7 @@ public class KeySystem : SystemBase
                     inventoryComp.HaveToCollect--;
                     spriteKey.RenderSource = Rectangle.Empty;
                     keyComp.IsCollected = true;
+                    _collectSound?.Play();
                     break;
                 }
             }
