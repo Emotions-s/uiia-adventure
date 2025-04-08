@@ -1,6 +1,5 @@
 namespace uiia_adventure.Factories;
 
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,7 +7,6 @@ using uiia_adventure.Components;
 using uiia_adventure.Core;
 using uiia_adventure.Globals;
 using System.Collections.Generic;
-
 
 public class EntityFactory
 {

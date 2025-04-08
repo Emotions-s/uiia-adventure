@@ -23,6 +23,11 @@ public class FinishSystem(SceneFlowController flowController) : SystemBase
         var finishObj = gameObjects.Find(g => g.HasComponent<FinishTileComponent>());
         if (finishObj == null) return;
 
+        var keyInventoryObj = gameObjects.Find(g => g.HasComponent<KeyInventoryComponent>());
+        if (keyInventoryObj == null) return;
+
+        var keyInventory = keyInventoryObj.GetComponent<KeyInventoryComponent>();
+
         var debugComponent = gameObjects.Find(g => g.HasComponent<DebugComponent>());
 
 
@@ -57,7 +62,7 @@ public class FinishSystem(SceneFlowController flowController) : SystemBase
             }
         }
 
-        if (insideCount >= 2)
+        if (insideCount >= 2 && keyInventory.HaveToCollect == 0)
         {
             _finished = true;
             _finishSound?.Play();

@@ -12,6 +12,7 @@ public class LevelJsonModel
     public string HazardPath { get; set; }
     public int[] SpawnPoint { get; set; }
     public int[] FinishPoint { get; set; }
+    public List<string> Keys { get; set; }
 
     public List<LevelObjectData> Objects { get; set; } = new();
 }

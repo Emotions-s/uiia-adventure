@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using uiia_adventure.Components;
 
 namespace uiia_adventure.Components
 {

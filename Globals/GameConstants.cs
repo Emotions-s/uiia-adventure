@@ -1,5 +1,3 @@
-using System;
-using System.Net.NetworkInformation;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace uiia_adventure.Globals;

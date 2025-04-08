@@ -1,6 +1,5 @@
 namespace uiia_adventure.Managers;
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;

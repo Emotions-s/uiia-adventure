@@ -133,7 +133,7 @@ public static class ObjectFactory
         return obj;
     }
 
-    private static Point ParsePoint(string s)
+    public static Point ParsePoint(string s)
     {
         var parts = s.Split(',');
         return new Point(int.Parse(parts[0]), int.Parse(parts[1]));

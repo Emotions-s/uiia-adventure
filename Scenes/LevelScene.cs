@@ -53,7 +53,9 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new CollisionSystem());
         _updateSystems.Add(new PhysicsSystem(_cameraSystem));
         _updateSystems.Add(new HazardSystem());
+        _updateSystems.Add(new KeySystem());
         _updateSystems.Add(new ButtonSystem());
+        _updateSystems.Add(new DoorSystem());
         _updateSystems.Add(new DeathSystem(FlowController));
         _updateSystems.Add(new FinishSystem(FlowController));
 
@@ -139,6 +141,50 @@ public class LevelScene : SceneBase
             Area = new Rectangle(levelData.FinishPoint[0], levelData.FinishPoint[1], GameConstants.TileSize, GameConstants.TileSize),
         });
         _gameObjects.Add(finishObj);
+
+        // keys
+        foreach (var key in levelData.Keys)
+        {
+            var p = ObjectFactory.ParsePoint(key);
+            var keyObj = new GameObject
+            {
+                Name = "Key",
+                Position = new Vector2(p.X, p.Y),
+            };
+            keyObj.AddComponent(new KeyComponent());
+            keyObj.AddComponent(new SpriteComponent(){
+                Texture = ResourceCache.GetTexture2D("sprite/key", _content),
+                SourceRect = new Rectangle(0, 0, GameConstants.TileSize, GameConstants.TileSize),
+                RenderSource = new Rectangle(0, 0, GameConstants.TileSize, GameConstants.TileSize),
+            });
+            _gameObjects.Add(keyObj);
+        }
+
+        // keys inventory
+        var keyInventory = new GameObject
+        {
+            Name = "KeyInventory",
+            Position = new Vector2(0, 0),
+        };
+        keyInventory.AddComponent(new KeyInventoryComponent() {
+            HaveToCollect = levelData.Keys.Count,
+        });
+        _gameObjects.Add(keyInventory);
+
+        // doors
+        var doorObj = new GameObject
+        {
+            Name = "Door",
+            Position = new Vector2(levelData.FinishPoint[0], levelData.FinishPoint[1]),
+        };
+        doorObj.AddComponent(new DoorComponent());
+        doorObj.AddComponent(new SpriteComponent()
+        {
+            Texture = ResourceCache.GetTexture2D("sprite/door", _content),
+            SourceRect = new Rectangle(0, 0, GameConstants.TileSize, GameConstants.TileSize),
+            RenderSource = new Rectangle(0, 0, GameConstants.TileSize, GameConstants.TileSize),
+        });
+        _gameObjects.Add(doorObj);
     }
 
     public override void Update(GameTime gameTime)
