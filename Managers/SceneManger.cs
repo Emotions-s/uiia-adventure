@@ -11,7 +11,8 @@ using uiia_adventure.Scenes;
 public enum SceneType
 {
     Level,
-    CutScene
+    CutScene,
+    Credits
 }
 
 public class SceneManager
@@ -57,7 +58,13 @@ public class SceneManager
                 _loadedScenes[levelData.LevelName] = cutScene;
                 _currentScene.Load(levelData);
                 break;
+            case SceneType.Credits:
+                var creditsScene = new CreditsScene(_graphics, _content, _spriteBatch);
+                _currentScene = creditsScene;
+                _loadedScenes[levelData.LevelName] = creditsScene;
+            break;
         }
+        _currentScene.Load(levelData);
     }
 
     public void Update(GameTime gameTime)

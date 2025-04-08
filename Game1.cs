@@ -61,6 +61,8 @@ public class Game1 : Game
         //cut scene
         //_sceneManager.ChangeScene(new LevelData { LevelName = "IntroCutscene" }, SceneType.CutScene);
         //_sceneManager.ChangeScene(new LevelData { LevelName = "Ending" }, SceneType.CutScene);
+        //_sceneManager.ChangeScene(new LevelData { LevelName = "Credits" }, SceneType.Credits);
+
 
 
         _renderTarget = new RenderTarget2D(GraphicsDevice, ResolutionManager.VirtualWidth, ResolutionManager.VirtualHeight);
