@@ -1,6 +1,5 @@
 {
     "levelName": "test",
-    "basePath": "../../../Content/",
     "tilesetPath": "map/map1/tileset_1",
     "tilemapPath": "map/map1/tilemap_test.csv",
     "groundPath": "map/map1/ground_test.csv",
