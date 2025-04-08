@@ -4,6 +4,7 @@ using GameNamespace.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using uiia_adventure.Factories;
 using uiia_adventure.Globals;
 using uiia_adventure.Managers;
 
@@ -63,6 +64,9 @@ public class Game1 : Game
         //_sceneManager.ChangeScene(new LevelData { LevelName = "Ending" }, SceneType.CutScene);
         //_sceneManager.ChangeScene(new LevelData { LevelName = "Credits" }, SceneType.Credits);
 
+
+        var arrowTexture = Content.Load<Texture2D>("sprite/box");
+        ProjectileFactory.Initialize(arrowTexture);
 
 
         _renderTarget = new RenderTarget2D(GraphicsDevice, ResolutionManager.VirtualWidth, ResolutionManager.VirtualHeight);

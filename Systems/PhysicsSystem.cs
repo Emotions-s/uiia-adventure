@@ -32,7 +32,7 @@ public class PhysicsSystem : SystemBase
 
             // Apply gravity
             if (!physics.IsGrounded)
-                physics.Velocity.Y += Gravity * dt;
+                physics.Velocity.Y += Gravity * dt * physics.GravityScale;
 
             // Clamp X position after physics is applied
             if (obj.Name == GameConstants.MeowBowName || obj.Name == GameConstants.MeowSwordName)

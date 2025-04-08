@@ -43,6 +43,8 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new InputSystem());
         _updateSystems.Add(new MovementSystem());
         _updateSystems.Add(new JumpSystem());
+        _updateSystems.Add(new ShootingSystem());
+        _updateSystems.Add(new ProjectileSystem());
         _updateSystems.Add(new ClimbSystem());
         _updateSystems.Add(new PushSystem());
         _updateSystems.Add(new CollisionSystem());
@@ -76,6 +78,7 @@ public class LevelScene : SceneBase
         RespawnManager.SpawnPoint = levelData.SpawnPoint;
         var tileMap = tileMapObject.GetComponent<TileMapComponent>();
         var musicPlayer = new GameObject();
+        musicPlayer.Name = "MusicPlayer";
 
         _cameraSystem.SetMapWidthInTiles(tileMap.TilesPerRowMap);
 
@@ -86,6 +89,7 @@ public class LevelScene : SceneBase
 
         var parallax = new ParallaxComponent(bg1, bg2, 0.05f, 0.1f);
         var parallaxObj = new GameObject();
+        parallaxObj.Name = "Parallax";
         parallaxObj.Position = Vector2.Zero;
         parallaxObj.AddComponent(parallax);
         _gameObjects.Add(parallaxObj);

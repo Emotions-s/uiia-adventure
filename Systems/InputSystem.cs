@@ -19,6 +19,7 @@ public class InputSystem : SystemBase
 
             input.MoveDirection = 0;
             input.WantsToJump = false;
+            input.ActionPressed = false;
 
             if (state.IsKeyDown(input.Left))
             {
@@ -35,6 +36,11 @@ public class InputSystem : SystemBase
             if (state.IsKeyDown(input.Jump))
             {
                 input.WantsToJump = true;
+            }
+
+            if (state.IsKeyDown(input.Action))
+            {
+                input.ActionPressed = true;
             }
         }
     }

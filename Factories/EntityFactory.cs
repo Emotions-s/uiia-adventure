@@ -62,6 +62,7 @@ public class EntityFactory
         {
             JumpSound = Game1.JumpSound1
         });
+        obj.AddComponent(new CanShootComponent());
 
         return obj;
     }
