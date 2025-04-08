@@ -39,7 +39,7 @@ public class ShootingSystem : SystemBase
 
             // Clone the projectile
             arrow = ProjectileFactory.ArrowTemplate.Clone();
-            arrow.Position = shooter.Position + new Vector2(48, 32); // offset
+            arrow.Position = shooter.Position + new Vector2(48, 0); // offset
 
             var physics = arrow.GetComponent<PhysicsComponent>();
             var projectile = arrow.GetComponent<ProjectileComponent>();

@@ -66,8 +66,8 @@ public class Game1 : Game
         //_sceneManager.ChangeScene(new LevelData { LevelName = "Ending" }, SceneType.CutScene);
         //_sceneManager.ChangeScene(new LevelData { LevelName = "Credits" }, SceneType.Credits);
 
-
-        var arrowTexture = Content.Load<Texture2D>("sprite/box");
+ 
+        var arrowTexture = Content.Load<Texture2D>("sprite/arrow");
         ProjectileFactory.Initialize(arrowTexture);
 
 

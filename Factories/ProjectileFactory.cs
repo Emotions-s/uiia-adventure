@@ -17,8 +17,8 @@ public static class ProjectileFactory
         arrow.AddComponent(new SpriteComponent
         {
             Texture = arrowTexture,
-            SourceRect = new Rectangle(0, 0, 32, 16),
-            RenderSource = new Rectangle(0, 0, 32, 16),
+            SourceRect = new Rectangle(0, 0, 64, 64),
+            RenderSource = new Rectangle(0, 0, 64, 64),
             Offset = Vector2.Zero
         });
 
