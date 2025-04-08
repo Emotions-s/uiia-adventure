@@ -9,100 +9,101 @@
     "hazardPath": "map/map1/hazard_1_3.csv",
     "spawnPoint": [64, 896],
     "finishPoint": [6400, 640],
+    "keys": ["3400,896", "3600,896", "64,900"],
     "objects": [
-      {
-        "type": "box",
-        "position": [1280, 128],
-        "texture": "sprite/box",
-        "size": [64, 64]
-      },
-      {
-        "type": "button",
-        "position": [64, 320],
-        "texture": "sprite/button",
-        "size": [64, 64],
-        "targets": ["key1"]
-      },
-      {
-        "type": "button",
-        "position": [1152, 704],
-        "texture": "sprite/button",
-        "size": [64, 64],
-        "targets": ["key2"]
-      },
-      {
-        "type": "button",
-        "position": [5184, 640],
-        "texture": "sprite/button",
-        "size": [64, 64],
-        "targets": ["key3"]
-      },
-      {
-        "type": "button",
-        "position": [5768, 128],
-        "texture": "sprite/button",
-        "size": [64, 64],
-        "targets": ["ladder2"]
-      },
-      {
-        "type": "triggerLadder",
-        "triggerId": "ladder1",
-        "tiles": {
-          "9,9": 32,
-          "9,10": 32,
-          "9,11": 32,
-          "9,12": 32,
-          "9,13": 32,
-          "9,14": 32
+        {
+            "type": "box",
+            "position": [1280, 128],
+            "texture": "sprite/box",
+            "size": [64, 64]
+        },
+        {
+            "type": "button",
+            "position": [64, 320],
+            "texture": "sprite/button",
+            "size": [64, 64],
+            "targets": ["key1"]
+        },
+        {
+            "type": "button",
+            "position": [1152, 704],
+            "texture": "sprite/button",
+            "size": [64, 64],
+            "targets": ["key2"]
+        },
+        {
+            "type": "button",
+            "position": [5184, 640],
+            "texture": "sprite/button",
+            "size": [64, 64],
+            "targets": ["key3"]
+        },
+        {
+            "type": "button",
+            "position": [5768, 128],
+            "texture": "sprite/button",
+            "size": [64, 64],
+            "targets": ["ladder2"]
+        },
+        {
+            "type": "triggerLadder",
+            "triggerId": "ladder1",
+            "tiles": {
+                "9,9": 32,
+                "9,10": 32,
+                "9,11": 32,
+                "9,12": 32,
+                "9,13": 32,
+                "9,14": 32
+            }
+        },
+        {
+            "type": "breakableBox",
+            "position": [1792, 576],
+            "texture": "sprite/box",
+            "size": [64, 384],
+            "health": 3
+        },
+        {
+            "type": "breakableBox",
+            "position": [3712, 0],
+            "texture": "sprite/box",
+            "size": [64, 384],
+            "health": 3
+        },
+        {
+            "type": "breakableBox",
+            "position": [5824, 384],
+            "texture": "sprite/box",
+            "size": [64, 320],
+            "health": 3
+        },
+        {
+            "type": "triggerLadder",
+            "triggerId": "ladder2",
+            "tiles": {
+                "90,4": 32,
+                "90,5": 32,
+                "90,6": 32,
+                "90,7": 32,
+                "90,8": 32,
+                "90,9": 32,
+                "90,10": 32,
+                "90,11": 32,
+                "90,12": 32,
+                "90,13": 32,
+                "90,14": 32,
+                "90,15": 32,
+                "90,16": 32
+            }
+        },
+        {
+            "type": "turret",
+            "position": [576, 320],
+            "texture": "sprite/turret",
+            "size": [64, 64],
+            "direction": [1, 0],
+            "cooldown": 1.5
         }
-      },
-      {
-        "type": "breakableBox",
-        "position": [1792, 576],
-        "texture": "sprite/box",
-        "size": [64, 384],
-        "health": 3
-      },
-      {
-        "type": "breakableBox",
-        "position": [3712, 0],
-        "texture": "sprite/box",
-        "size": [64, 384],
-        "health": 3
-      },
-      {
-        "type": "breakableBox",
-        "position": [5824, 384],
-        "texture": "sprite/box",
-        "size": [64, 320],
-        "health": 3
-      },
-      {
-        "type": "triggerLadder",
-        "triggerId": "ladder2",
-        "tiles": {
-          "90,4": 32,
-          "90,5": 32,
-          "90,6": 32,
-          "90,7": 32,
-          "90,8": 32,
-          "90,9": 32,
-          "90,10": 32,
-          "90,11": 32,
-          "90,12": 32,
-          "90,13": 32,
-          "90,14": 32,
-          "90,15": 32,
-          "90,16": 32
-        }
-      },
-      {
-        "type": "turret",
-        "position": [576, 320],
-        "texture": "sprite/turret",
-        "size": [64, 64],
-        "direction": [1, 0],
-        "cooldown": 1.5
-      }
     ]
-  }
+}
