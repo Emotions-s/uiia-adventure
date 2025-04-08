@@ -12,9 +12,6 @@ public class PushSystem : SystemBase
 {
     private bool CanMoveBox(Vector2 newPosition, SpriteComponent sprite, HashSet<Point> wallTiles)
     {
-        if (newPosition.X < 0 || newPosition.X > ResolutionManager.VirtualWidth - sprite.SourceRect.Width ||
-            newPosition.Y < 0 || newPosition.Y > ResolutionManager.VirtualHeight - sprite.SourceRect.Height)
-            return false;
         Rectangle boxRect = new(
             (int)newPosition.X + sprite.SourceRect.X,
             (int)newPosition.Y + sprite.SourceRect.Y,
