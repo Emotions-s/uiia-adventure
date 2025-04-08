@@ -44,6 +44,7 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new MovementSystem());
         _updateSystems.Add(new JumpSystem());
         _updateSystems.Add(new ShootingSystem());
+        _updateSystems.Add(new SwordAttackSystem());
         _updateSystems.Add(new ProjectileSystem());
         _updateSystems.Add(new ClimbSystem());
         _updateSystems.Add(new PushSystem());
@@ -63,7 +64,7 @@ public class LevelScene : SceneBase
         _renderSystems.Add(new RenderSystem(_spriteBatch));
 
         // Uncomment this line to add the debug render system
-        // _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
+        _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
     }
 
     public void SetPlayers(GameObject bow, GameObject sword)
@@ -187,6 +188,22 @@ public class LevelScene : SceneBase
         boxObj2.AddComponent(new PushableComponent());
         _gameObjects.Add(boxObj2);
 
+        // add breakable box
+        GameObject breakableBoxObj = new GameObject();
+        breakableBoxObj.Name = "breakableBox1-1-1";
+        breakableBoxObj.Position = new Vector2(12 * 64, 9 * 64);
+        breakableBoxObj.AddComponent(new SpriteComponent
+        {
+            Texture = _content.Load<Texture2D>("sprite/box"),
+            SourceRect = new Rectangle(0, 0, 64, 64 * 3),
+            RenderSource = new Rectangle(0, 0, 64, 64 * 3)
+        });
+        breakableBoxObj.AddComponent(new BreakableComponent
+        {
+            Health = 3,
+        });
+        _gameObjects.Add(breakableBoxObj);
+
         RespawnManager.RespawnPlayers(_gameObjects);
     }
 
@@ -203,7 +220,7 @@ public class LevelScene : SceneBase
     {
         _graphics.Clear(new Color(26, 24, 24));
         _spriteBatch.Begin(transformMatrix: _cameraSystem.Transform, samplerState: SamplerState.PointClamp);
-        
+
 
         foreach (var system in _renderSystems)
             system.Update(gameTime, _gameObjects);

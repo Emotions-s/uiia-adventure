@@ -134,6 +134,8 @@ public class EntityFactory
             Volume = 0.3f,
         });
 
+        obj.AddComponent(new MeleeComponent());
+
         return obj;
     }
 }

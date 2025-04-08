@@ -2,6 +2,7 @@ namespace uiia_adventure.Systems;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
@@ -12,9 +13,10 @@ public class DebugRenderSystem(SpriteBatch spriteBatch) : SystemBase
     private readonly SpriteBatch _spriteBatch = spriteBatch;
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
-        RenderGroundCollision(gameObjects);
-        RenderWallCollision(gameObjects);
-        RenderDebugTile(gameObjects);
+        // RenderGroundCollision(gameObjects);
+        // RenderWallCollision(gameObjects);
+        // RenderDebugTile(gameObjects);
+        RenderDebugRegtangle(gameObjects);
     }
 
     private void DrawTile(Point tile, Color color)
@@ -76,6 +78,31 @@ public class DebugRenderSystem(SpriteBatch spriteBatch) : SystemBase
                 foreach (var tile in debugComponent.PlayerTiles)
                 {
                     DrawTile(tile, new Color(0, 100, 0, 25));
+                }
+            }
+        }
+    }
+
+    public void RenderDebugRegtangle(List<GameObject> gameObjects)
+    {
+        foreach (var gameObject in gameObjects)
+        {
+            if (gameObject.HasComponent<DebugComponent>())
+            {
+                var debugComponent = gameObject.GetComponent<DebugComponent>();
+                foreach (var rect in debugComponent.Rectangles)
+                {
+                    _spriteBatch.Draw(
+                        GameConstants.Pixel,
+                        new Vector2(rect.X, rect.Y),
+                        null,
+                        new Color(0, 100, 0, 25),
+                        0f,
+                        Vector2.Zero,
+                        new Vector2(rect.Width, rect.Height),
+                        SpriteEffects.None,
+                        0f
+                    );
                 }
             }
         }

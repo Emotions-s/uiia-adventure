@@ -3,6 +3,7 @@ namespace uiia_adventure.Systems;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using uiia_adventure.Components;
 using uiia_adventure.Core;
 
 public class RenderSystem(SpriteBatch spriteBatch) : SystemBase
@@ -13,9 +14,8 @@ public class RenderSystem(SpriteBatch spriteBatch) : SystemBase
     {
         foreach (var obj in gameObjects)
         {
-            if (!obj.HasComponent<SpriteComponent>())
-                continue;
             var sprite = obj.GetComponent<SpriteComponent>();
+            if (sprite == null) continue;
             _spriteBatch.Draw(
                 sprite.Texture,
                 obj.Position + sprite.Offset,

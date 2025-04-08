@@ -6,4 +6,6 @@ public class DebugComponent : IComponent
 {
     public HashSet<Point> PlayerTiles = new();
 
+    public HashSet<Rectangle> Rectangles = new();
+
 }

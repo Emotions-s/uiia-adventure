@@ -166,6 +166,33 @@ public class CollisionSystem : SystemBase
                         physics.IsGrounded = true;
                 }
             }
+
+            // check breakable objects
+            var breakables = gameObjects.Where(o => o.HasComponent<BreakableComponent>());
+
+            foreach (var breakable in breakables)
+            {
+                var breakableData = breakable.GetComponent<BreakableComponent>();
+                if (breakableData.Health <= 0) continue;
+
+                var breakableSprite = breakable.GetComponent<SpriteComponent>();
+                if (breakableSprite == null) continue;
+
+                Rectangle breakableRect = new(
+                    (int)breakable.Position.X + breakableSprite.SourceRect.X,
+                    (int)breakable.Position.Y + breakableSprite.SourceRect.Y,
+                    breakableSprite.SourceRect.Width,
+                    breakableSprite.SourceRect.Height
+                );
+
+                if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, breakableRect,
+                    out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
+                {
+                    physics.Velocity += contactNormal * new Vector2(Math.Abs(physics.Velocity.X), Math.Abs(physics.Velocity.Y)) * (1 - contactTime);
+                    if (contactNormal.Y < 0)
+                        physics.IsGrounded = true;
+                }
+            }
         }
     }
     private static bool IsStandingOnBox(Rectangle playerRect, GameObject box, SpriteComponent boxSprite)
