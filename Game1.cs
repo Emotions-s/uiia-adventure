@@ -21,6 +21,7 @@ public class Game1 : Game
     public static SoundEffect JumpSound1;
     public static SoundEffect JumpSound2;
     public static SoundEffect deathSound;
+    public static SoundEffect finishSound;
     private CharacterManager _characterManager;
     private SceneFlowController _sceneFlowController;
 
@@ -55,6 +56,7 @@ public class Game1 : Game
         JumpSound1 = ResourceCache.GetSoundEffect("audio/cat_jumping", Content);
         JumpSound2 = ResourceCache.GetSoundEffect("audio/cat_jumping2", Content);
         deathSound = ResourceCache.GetSoundEffect("audio/cat_die", Content);
+        finishSound = ResourceCache.GetSoundEffect("audio/success", Content);
 
         _characterManager = new CharacterManager();
         _characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture, shootTexture, swordTexture);

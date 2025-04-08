@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
@@ -11,6 +13,8 @@ public class FinishSystem(SceneFlowController flowController) : SystemBase
 {
     private readonly SceneFlowController _flowController = flowController;
     private bool _finished = false;
+    private static SoundEffect? _finishSound = Game1.finishSound;
+
 
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
@@ -56,6 +60,7 @@ public class FinishSystem(SceneFlowController flowController) : SystemBase
         if (insideCount >= 2)
         {
             _finished = true;
+            _finishSound?.Play();
             _flowController.GoToNextScene();
         }
     }
