@@ -1,78 +1,70 @@
 {
-    "levelName": "1-1",
-    "basePath": "../../../Content/",
-    "tilesetPath": "map/map1/tileset_1",
-    "tilemapPath": "map/map1/tilemap_1_1.csv",
-    "groundPath": "map/map1/ground_1_1.csv",
-    "wallPath": "map/map1/wall_1_1.csv",
-    "ladderPath": "map/map1/ladder_1_1.csv",
-    "hazardPath": "map/map1/hazard_1_1.csv",
-    "spawnPoint": [64, 700],
-    "finishPoint": [3776, 896],
-    "objects": [
-      {
-        "type": "box",
-        "position": [1280, 128],
-        "texture": "sprite/box",
-        "size": [64, 64]
-      },
-      {
-        "type": "button",
-        "position": [448, 512],
-        "texture": "sprite/button",
-        "size": [64, 64],
-        "targets": ["ladder1"]
-      },
-      {
-        "type": "turret",
-        "position": [400, 896],
-        "texture": "sprite/turret",
-        "size": [64, 64],
-        "direction": [-1, 0],
-        "cooldown": 3
-      },
-      {
-        "type": "triggerLadder",
-        "triggerId": "ladder1",
-        "tiles": {
-          "9,9": 32,
-          "9,10": 32,
-          "9,11": 32,
-          "9,12": 32,
-          "9,13": 32,
-          "9,14": 32
-        }
-      },
-      {
-        "type": "breakableBox",
-        "position": [448, 640],
-        "texture": "sprite/box",
-        "size": [64, 320],
-        "health": 3
-      },
-      {
-        "type": "button",
-        "position": [2240, 192],
-        "texture": "sprite/button",
-        "size": [64, 64],
-        "targets": ["ladder2"]
-      },
-      {
-        "type": "triggerLadder",
-        "triggerId": "ladder2",
-        "tiles": {
-          "33,4": 32,
-          "33,5": 32,
-          "33,6": 32,
-          "33,7": 32,
-          "33,8": 32,
-          "33,9": 32,
-          "33,10": 32,
-          "33,11": 32,
-          "33,12": 32,
-          "33,13": 32,
-          "33,14": 32
-        }
+  "levelName": "1-1",
+  "basePath": "../../../Content/",
+  "tilesetPath": "map/map1/tileset_1",
+  "tilemapPath": "map/map1/tilemap_1_1.csv",
+  "groundPath": "map/map1/ground_1_1.csv",
+  "wallPath": "map/map1/wall_1_1.csv",
+  "ladderPath": "map/map1/ladder_1_1.csv",
+  "hazardPath": "map/map1/hazard_1_1.csv",
+  "spawnPoint": [64, 768],
+  "finishPoint": [3776, 896],
+  "objects": [
+    {
+      "type": "box",
+      "position": [1280, 128],
+      "texture": "sprite/box",
+      "size": [64, 64]
+    },
+    {
+      "type": "button",
+      "position": [448, 512],
+      "texture": "sprite/button",
+      "size": [64, 64],
+      "targets": ["ladder1"]
+    },
+    {
+      "type": "triggerLadder",
+      "triggerId": "ladder1",
+      "tiles": {
+        "9,9": 32,
+        "9,10": 32,
+        "9,11": 32,
+        "9,12": 32,
+        "9,13": 32,
+        "9,14": 32
       }
-    ]
-  }
+    },
+    {
+      "type": "breakableBox",
+      "position": [448, 640],
+      "texture": "sprite/box",
+      "size": [64, 320],
+      "health": 3
+    },
+    {
+      "type": "button",
+      "position": [2240, 192],
+      "texture": "sprite/button",
+      "size": [64, 64],
+      "targets": ["ladder2"]
+    },
+    {
+      "type": "triggerLadder",
+      "triggerId": "ladder2",
+      "tiles": {
+        "33,4": 32,
+        "33,5": 32,
+        "33,6": 32,
+        "33,7": 32,
+        "33,8": 32,
+        "33,9": 32,
+        "33,10": 32,
+        "33,11": 32,
+        "33,12": 32,
+        "33,13": 32,
+        "33,14": 32
+      }
+    }
+  ]
+}

@@ -7,7 +7,7 @@
     "wallPath": "map/map1/wall_1_3.csv",
     "ladderPath": "map/map1/ladder_1_3.csv",
     "hazardPath": "map/map1/hazard_1_3.csv",
-    "spawnPoint": [5760, 0],
+    "spawnPoint": [64, 896],
     "finishPoint": [6400, 640],
     "objects": [
       {
@@ -95,6 +95,14 @@
           "90,15": 32,
           "90,16": 32
         }
+      },
+      {
+        "type": "turret",
+        "position": [576, 320],
+        "texture": "sprite/turret",
+        "size": [64, 64],
+        "direction": [1, 0],
+        "cooldown": 1.5
       }
     ]
   }
