@@ -20,10 +20,10 @@ public class EntityFactory
 
         obj.AddComponent(new InputComponent
         {
-            Left = Keys.A,
-            Right = Keys.D,
-            Jump = Keys.W,
-            Action = Keys.Space
+            Left = Keys.Left,
+            Right = Keys.Right,
+            Jump = Keys.Up,
+            Action = Keys.Enter
         });
 
         obj.AddComponent(new PhysicsComponent());
@@ -83,10 +83,10 @@ public class EntityFactory
 
         obj.AddComponent(new InputComponent
         {
-            Left = Keys.Left,
-            Right = Keys.Right,
-            Jump = Keys.Up,
-            Action = Keys.Enter
+            Left = Keys.A,
+            Right = Keys.D,
+            Jump = Keys.W,
+            Action = Keys.Space
         });
 
         obj.AddComponent(new PhysicsComponent());
