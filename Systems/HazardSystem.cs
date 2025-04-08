@@ -6,7 +6,6 @@ using uiia_adventure.Core;
 using uiia_adventure.Components;
 using System.Linq;
 using uiia_adventure.Globals;
-using uiia_adventure.Managers;
 
 public class HazardSystem : SystemBase
 {
@@ -48,11 +47,10 @@ public class HazardSystem : SystemBase
             {
                 if (hazardTiles.Tiles.Contains(corner))
                 {
-                    if (Game1.deathSound != null)
+                    if (!obj.HasComponent<DeathFlagComponent>())
                     {
-                        Game1.deathSound.Play(1f, 0f, 0f); // 🔊 full volume, no pitch, no pan
+                        obj.AddComponent(new DeathFlagComponent());
                     }
-                    RespawnManager.RespawnPlayers(gameObjects);
                     break;
                 }
             }

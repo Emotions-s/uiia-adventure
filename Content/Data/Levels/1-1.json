@@ -24,6 +24,14 @@
         "targets": ["ladder1"]
       },
       {
+        "type": "turret",
+        "position": [400, 896],
+        "texture": "sprite/turret",
+        "size": [64, 64],
+        "direction": [-1, 0],
+        "cooldown": 3
+      },
+      {
         "type": "triggerLadder",
         "triggerId": "ladder1",
         "tiles": {

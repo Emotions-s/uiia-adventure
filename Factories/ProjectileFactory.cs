@@ -1,36 +1,28 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using uiia_adventure.Components;
 using uiia_adventure.Core;
 
 namespace uiia_adventure.Factories;
 
 public static class ProjectileFactory
 {
-    public static GameObject ArrowTemplate { get; private set; }
+    private static Dictionary<string, GameObject> _templates = new();
 
-    public static void Initialize(Texture2D arrowTexture)
+    public static void RegisterTemplate(string name, GameObject template)
     {
-        var arrow = new GameObject();
-        arrow.Name = "ArrowTemplate";
+        _templates[name] = template;
+    }
 
-        arrow.AddComponent(new SpriteComponent
-        {
-            Texture = arrowTexture,
-            SourceRect = new Rectangle(0, 0, 64, 64),
-            RenderSource = new Rectangle(0, 0, 64, 64),
-            Offset = Vector2.Zero
-        });
+    public static GameObject Create(string templateName, Vector2 position)
+    {
+        if (!_templates.TryGetValue(templateName, out var template))
+            throw new ArgumentException($"Projectile template '{templateName}' not registered.");
 
-        arrow.AddComponent(new PhysicsComponent
-        {
-            Velocity = Vector2.Zero,
-            IsGrounded = false,
-            GravityScale = 0f
-        });
+        var clone = template.Clone();
+        clone.Position = position;
+        clone.Name = templateName;
 
-        arrow.AddComponent(new ProjectileComponent());
-
-        ArrowTemplate = arrow;
+        return clone;
     }
 }

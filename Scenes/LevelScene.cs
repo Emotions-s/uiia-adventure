@@ -44,6 +44,7 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new MovementSystem());
         _updateSystems.Add(new JumpSystem());
         _updateSystems.Add(new ShootingSystem());
+        _updateSystems.Add(new TurretSystem());
         _updateSystems.Add(new SwordAttackSystem());
         _updateSystems.Add(new ProjectileSystem());
         _updateSystems.Add(new ClimbSystem());

@@ -4,6 +4,8 @@ using GameNamespace.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using uiia_adventure.Components;
+using uiia_adventure.Core;
 using uiia_adventure.Factories;
 using uiia_adventure.Globals;
 using uiia_adventure.Managers;
@@ -61,8 +63,41 @@ public class Game1 : Game
         _sceneManager = new SceneManager(GraphicsDevice, Content, _spriteBatch, _characterManager);
         _sceneFlowController = new SceneFlowController(_sceneManager);
 
-        var arrowTexture = ResourceCache.GetTexture2D("sprite/arrow", Content);
-        ProjectileFactory.Initialize(arrowTexture);
+        var arrowProjectile = new GameObject();
+        arrowProjectile.AddComponent(new ProjectileComponent()
+        {
+            Speed = 500f
+        });
+        arrowProjectile.AddComponent(new SpriteComponent()
+        {
+            Texture = ResourceCache.GetTexture2D("sprite/arrow", Content),
+            SourceRect = new Rectangle(0, 0, 64, 64),
+            RenderSource = new Rectangle(0, 0, 64, 64),
+        });
+        arrowProjectile.AddComponent(new PhysicsComponent()
+        {
+            IsGrounded = false,
+            GravityScale = 0f,
+        });
+
+        ProjectileFactory.RegisterTemplate("arrow", arrowProjectile);
+
+        var fireballProjectile = new GameObject();
+        fireballProjectile.AddComponent(new ProjectileComponent(){
+            IsFromPlayer = false,
+        });
+        fireballProjectile.AddComponent(new SpriteComponent()
+        {
+            Texture = ResourceCache.GetTexture2D("sprite/fireball", Content),
+            SourceRect = new Rectangle(0, 0, 64, 64),
+            RenderSource = new Rectangle(0, 0, 64, 64),
+        });
+        fireballProjectile.AddComponent(new PhysicsComponent()
+        {
+            IsGrounded = false,
+            GravityScale = 0f,
+        });
+        ProjectileFactory.RegisterTemplate("fireball", fireballProjectile);
 
         _renderTarget = new RenderTarget2D(GraphicsDevice, ResolutionManager.VirtualWidth, ResolutionManager.VirtualHeight);
 

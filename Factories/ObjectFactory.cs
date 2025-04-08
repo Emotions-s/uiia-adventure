@@ -79,6 +79,22 @@ public static class ObjectFactory
                     Tiles = data.Tiles.ToDictionary(k => ParsePoint(k.Key), k => k.Value)
                 });
                 break;
+            case "turret":
+                if (data.Direction == null || data.Direction.Length != 2)
+                    throw new ArgumentException("Turret must have a Direction array of two integers.");
+                if (data.Cooldown == 0)
+                    throw new ArgumentException("Turret must have a cooldown value.");
+
+                obj.AddComponent(new TurretComponent
+                {
+                    Direction = new Vector2(data.Direction[0], data.Direction[1])
+                });
+
+                obj.AddComponent(new CanShootComponent
+                {
+                    shootCooldown = data.Cooldown
+                });
+                break;
         }
 
         if (texture == null && !string.IsNullOrEmpty(data.Texture))
@@ -91,14 +107,28 @@ public static class ObjectFactory
         if (!string.IsNullOrEmpty(data.Texture))
         {
             texture = ResourceCache.GetTexture2D(data.Texture, content);
-
-            obj.AddComponent(new SpriteComponent
+            if (data.Type == "turret")
             {
-                Texture = texture,
-                SourceRect = new(0, 0, data.Size[0], data.Size[1]),
-                RenderSource = new(0, 0, data.Size[0], data.Size[1])
-            });
+                obj.AddComponent(new SpriteComponent
+                {
+                    Texture = texture,
+                    SourceRect = new(0, 0, data.Size[0], data.Size[1]),
+                    RenderSource = new(0, 0, data.Size[0], data.Size[1]),
+                    FlipHorizontally = data.Direction[0] == -1
+                });
+            }
+            else
+            {
+                obj.AddComponent(new SpriteComponent
+                {
+                    Texture = texture,
+                    SourceRect = new(0, 0, data.Size[0], data.Size[1]),
+                    RenderSource = new(0, 0, data.Size[0], data.Size[1]),
+                });
+            }
         }
+
+
 
         return obj;
     }

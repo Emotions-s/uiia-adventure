@@ -29,7 +29,9 @@ public class CollisionSystem : SystemBase
             var ground = gameObjects.FirstOrDefault(obj => obj.GetComponent<GroundTileComponent>() != null)?.GetComponent<GroundTileComponent>();
             var wall = gameObjects.FirstOrDefault(obj => obj.GetComponent<WallTileComponent>() != null)?.GetComponent<WallTileComponent>();
 
-            Rectangle playerRect = new(
+            var projectile = obj.GetComponent<ProjectileComponent>();
+
+            Rectangle currentRect = new(
                 (int)obj.Position.X + sprite.SourceRect.X,
                 (int)obj.Position.Y + sprite.SourceRect.Y,
                 sprite.SourceRect.Width,
@@ -49,7 +51,7 @@ public class CollisionSystem : SystemBase
                     foreach (var box in pushableObjects)
                     {
                         var boxSprite = box.GetComponent<SpriteComponent>();
-                        if (boxSprite != null && IsStandingOnBox(playerRect, box, boxSprite))
+                        if (boxSprite != null && IsStandingOnBox(currentRect, box, boxSprite))
                         {
                             isOnBox = true;
                             break;
@@ -68,10 +70,10 @@ public class CollisionSystem : SystemBase
                 debug.PlayerTiles.Clear();
             HashSet<Point> visited = new();
 
-            int left = playerRect.Left / GameConstants.TileSize;
-            int right = (playerRect.Right - 1) / GameConstants.TileSize;
-            int top = playerRect.Top / GameConstants.TileSize;
-            int bottom = (playerRect.Bottom - 1) / GameConstants.TileSize;
+            int left = currentRect.Left / GameConstants.TileSize;
+            int right = (currentRect.Right - 1) / GameConstants.TileSize;
+            int top = currentRect.Top / GameConstants.TileSize;
+            int bottom = (currentRect.Bottom - 1) / GameConstants.TileSize;
 
             _groundCollisionsCheckOrder.Clear();
             _wallCollisionsCheckOrder.Clear();
@@ -99,7 +101,7 @@ public class CollisionSystem : SystemBase
                     );
 
                     // Get collision tiles and sort them by T distance
-                    if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, tileRect,
+                    if (CollisionHelper.DynamicRectVsRect(currentRect, physics.Velocity, dt, tileRect,
                         out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
                     {
                         if (ground.Tiles.Contains(gTile))
@@ -117,9 +119,13 @@ public class CollisionSystem : SystemBase
             foreach (var tileCollision in _wallCollisionsCheckOrder)
             {
                 Rectangle tileCollisionRect = tileCollision.Item2;
-                if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, tileCollisionRect,
+                if (CollisionHelper.DynamicRectVsRect(currentRect, physics.Velocity, dt, tileCollisionRect,
                     out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
                     physics.Velocity += contactNormal * new Vector2(Math.Abs(physics.Velocity.X), Math.Abs(physics.Velocity.Y)) * (1 - contactTime);
+                if (projectile != null)
+                {
+                    projectile.IsBlocked = true;
+                }
 
             }
 
@@ -127,13 +133,17 @@ public class CollisionSystem : SystemBase
             foreach (var tileCollision in _groundCollisionsCheckOrder)
             {
                 Rectangle tileCollisionRect = tileCollision.Item2;
-                if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, tileCollisionRect,
+                if (CollisionHelper.DynamicRectVsRect(currentRect, physics.Velocity, dt, tileCollisionRect,
                     out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
                 {
                     physics.Velocity += contactNormal * new Vector2(Math.Abs(physics.Velocity.X), Math.Abs(physics.Velocity.Y)) * (1 - contactTime);
                     if (contactNormal.Y < 0)
                     {
                         physics.IsGrounded = true;
+                    }
+                    if (projectile != null)
+                    {
+                        projectile.IsBlocked = true;
                     }
 
                 }
@@ -155,16 +165,19 @@ public class CollisionSystem : SystemBase
                     boxSprite.SourceRect.Height
                 );
 
-                if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, boxRect,
+                if (CollisionHelper.DynamicRectVsRect(currentRect, physics.Velocity, dt, boxRect,
                     out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
                 {
-                    // Console.WriteLine($"Collision with box {box.Name} at {contactPoint} with normal {contactNormal} and time {contactTime}");
                     if (playerPushable == null || !pushablesComponent.CanBePushed || contactNormal.Y < 0)
                     {
                         physics.Velocity += contactNormal * new Vector2(Math.Abs(physics.Velocity.X), Math.Abs(physics.Velocity.Y)) * (1 - contactTime);
                     }
                     if (contactNormal.Y < 0)
                         physics.IsGrounded = true;
+                    if (projectile != null)
+                    {
+                        projectile.IsBlocked = true;
+                    }
                 }
             }
 
@@ -186,12 +199,16 @@ public class CollisionSystem : SystemBase
                     breakableSprite.SourceRect.Height
                 );
 
-                if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, breakableRect,
+                if (CollisionHelper.DynamicRectVsRect(currentRect, physics.Velocity, dt, breakableRect,
                     out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
                 {
                     physics.Velocity += contactNormal * new Vector2(Math.Abs(physics.Velocity.X), Math.Abs(physics.Velocity.Y)) * (1 - contactTime);
                     if (contactNormal.Y < 0)
                         physics.IsGrounded = true;
+                    if (projectile != null)
+                    {
+                        projectile.IsBlocked = true;
+                    }
                 }
             }
         }

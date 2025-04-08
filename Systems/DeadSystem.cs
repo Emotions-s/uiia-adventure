@@ -14,6 +14,11 @@ public class DeathSystem : SystemBase
             if (obj.HasComponent<DeathFlagComponent>())
             {
                 RespawnManager.RespawnPlayers(gameObjects);
+                if (Game1.deathSound != null)
+                {
+                    Game1.deathSound.Play(1f, 0f, 0f);
+                }
+                RespawnManager.RespawnPlayers(gameObjects);
                 obj.RemoveComponent<DeathFlagComponent>();
             }
         }

@@ -5,6 +5,7 @@ using uiia_adventure.Core;
 using uiia_adventure.Components;
 using uiia_adventure.Factories;
 using System;
+using uiia_adventure.Globals;
 
 public class ShootingSystem : SystemBase
 {
@@ -12,12 +13,16 @@ public class ShootingSystem : SystemBase
 
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
-        GameObject arrow = null;
-
         var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        GameObject arrow = null;
 
         foreach (var shooter in gameObjects)
         {
+            if (shooter.Name != GameConstants.MeowBowName)
+            {
+                continue;
+            }
             if (!shooter.HasComponent<CanShootComponent>())
             {
                 continue;
@@ -36,14 +41,16 @@ public class ShootingSystem : SystemBase
             if (input == null || !input.ActionPressed) continue;
 
             canShoot.timeSinceLastShot = 0f;
-
+            int direction = input.LastDirectionKeyPressed == input.Left ? -1 : 1;
             // Clone the projectile
-            arrow = ProjectileFactory.ArrowTemplate.Clone();
-            arrow.Position = shooter.Position + new Vector2(48, 0); // offset
-
+            arrow = ProjectileFactory.Create(
+                "arrow",
+                shooter.Position + new Vector2(48 * direction, -16)
+            );
             var physics = arrow.GetComponent<PhysicsComponent>();
             var projectile = arrow.GetComponent<ProjectileComponent>();
-            int direction = input.LastDirectionKeyPressed == input.Left ? -1 : 1;
+            var sprite = arrow.GetComponent<SpriteComponent>();
+            sprite.FlipHorizontally = direction == -1;
             physics.Velocity = new Vector2(projectile.Speed * direction, 0);
 
         }
