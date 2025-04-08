@@ -36,7 +36,7 @@ namespace uiia_adventure.Scenes
             _blackPixel.SetData(new[] { Color.Black });
         }
 
-        public override void Load(LevelData levelData)
+        public override void Load(LevelJsonModel levelData)
         {
             if (levelData.LevelName == "Ending")
             {

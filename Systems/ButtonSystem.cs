@@ -69,9 +69,9 @@ public class ButtonSystem : SystemBase
         var ladderComponent = tileMapObj.GetComponent<LadderComponent>();
         if (tileMapComponent == null || ladderComponent == null) return;
 
-        foreach (var tile in tileMaps.Grid)
+        foreach (var tile in tileMaps.Tiles)
         {
-            tileMapComponent.Grid[tile.Key] = tile.Value;
+            tileMapComponent.Tiles[tile.Key] = tile.Value;
             ladderComponent.Tiles.Add(tile.Key);
         }
     }

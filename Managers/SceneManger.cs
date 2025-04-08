@@ -35,7 +35,7 @@ public class SceneManager
         _characterManager = characterManager;
     }
 
-    public void ChangeScene(LevelData levelData, SceneType type)
+    public void ChangeScene(LevelJsonModel levelData, SceneType type)
     {
         if (_loadedScenes.TryGetValue(levelData.LevelName, out var scene))
         {

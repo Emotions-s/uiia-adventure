@@ -1,7 +1,7 @@
 namespace uiia_adventure.Managers;
 
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -12,35 +12,35 @@ using uiia_adventure.Globals;
 
 public class MapManager
 {
-
-    public GameObject LoadLevel(LevelData levelData, ContentManager content)
+    public GameObject LoadLevel(LevelJsonModel levelData, ContentManager content)
     {
         GameObject mapObj = new GameObject();
         mapObj.Name = GameConstants.TileMapName;
 
         // load hazard
         HazardTileComponent hazardTileComponent = new();
-        hazardTileComponent.Tiles = loadTileCsvToPos(levelData.HazardPath);
+        hazardTileComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.HazardPath);
         // show all points of hazard
         mapObj.AddComponent(hazardTileComponent);
 
         // load ground
         GroundTileComponent groundTileComponent = new();
-        groundTileComponent.Tiles = loadTileCsvToPos(levelData.GroundPath);
+        groundTileComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.GroundPath);
         mapObj.AddComponent(groundTileComponent);
 
         // load wall
         WallTileComponent wallTileComponent = new();
-        wallTileComponent.Tiles = loadTileCsvToPos(levelData.WallPath);
+        wallTileComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.WallPath);
         mapObj.AddComponent(wallTileComponent);
 
         // load ladder
         LadderComponent ladderComponent = new();
-        ladderComponent.Tiles = loadTileCsvToPos(levelData.LadderPath);
+        Console.WriteLine("Ladder Path: " + levelData.BasePath + levelData.LadderPath);
+        ladderComponent.Tiles = loadTileCsvToPos(levelData.BasePath + levelData.LadderPath);
         mapObj.AddComponent(ladderComponent);
 
         // load map
-        TileMapComponent tileMapComponent = LoadTileMapCsvToComponent(levelData.MapPath);
+        TileMapComponent tileMapComponent = LoadTileMapCsvToComponent(levelData.BasePath + levelData.TilemapPath);
         Texture2D tileset = TilesetCache.GetTileset(levelData.TilesetPath, content);
         tileMapComponent.Tileset = tileset;
         tileMapComponent.TilesPerRowSet = tileset.Width / tileMapComponent.TileWidth;
@@ -75,7 +75,7 @@ public class MapManager
 
         TileMapComponent tileMapComponent = new()
         {
-            Grid = grid,
+            Tiles = grid,
             TileWidth = GameConstants.TileSize,
             TileHeight = GameConstants.TileSize,
             Tileset = null,

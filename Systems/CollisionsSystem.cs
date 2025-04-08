@@ -24,7 +24,7 @@ public class CollisionSystem : SystemBase
             var physics = obj.GetComponent<PhysicsComponent>();
             var sprite = obj.GetComponent<SpriteComponent>();
             var debug = obj.GetComponent<DebugComponent>();
-            if (physics == null || sprite == null || debug == null) continue;
+            if (physics == null || sprite == null) continue;
 
             var ground = gameObjects.FirstOrDefault(obj => obj.GetComponent<GroundTileComponent>() != null)?.GetComponent<GroundTileComponent>();
             var wall = gameObjects.FirstOrDefault(obj => obj.GetComponent<WallTileComponent>() != null)?.GetComponent<WallTileComponent>();
@@ -64,8 +64,8 @@ public class CollisionSystem : SystemBase
             }
 
 
-
-            debug.PlayerTiles.Clear();
+            if (debug != null)
+                debug.PlayerTiles.Clear();
             HashSet<Point> visited = new();
 
             int left = playerRect.Left / GameConstants.TileSize;
@@ -83,7 +83,8 @@ public class CollisionSystem : SystemBase
                     Point gTile = new(x, y);
                     if (visited.Contains(gTile)) continue;
                     visited.Add(gTile);
-                    debug.PlayerTiles.Add(gTile);
+                    if (debug != null)
+                        debug.PlayerTiles.Add(gTile);
 
                     if (!ground.Tiles.Contains(gTile) && !wall.Tiles.Contains(gTile))
                     {

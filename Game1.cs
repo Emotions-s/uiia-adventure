@@ -19,6 +19,7 @@ public class Game1 : Game
     public static SoundEffect JumpSound1;
     public static SoundEffect JumpSound2;
     public static SoundEffect deathSound;
+    private CharacterManager _characterManager;
 
 
     public Game1()
@@ -54,19 +55,12 @@ public class Game1 : Game
         deathSound = Content.Load<SoundEffect>("audio/cat_die");
 
 
-        CharacterManager characterManager = new();
-        characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture, shootTexture, swordTexture);
+        _characterManager = new CharacterManager();
+        _characterManager.Initialize(meowBowStandTexture, meowSwordStandTexture, meowSwordWalkTexture, meowBowWalkTexture, meowSwordJumpTexture, meowBowJumpTexture, shootTexture, swordTexture);
 
-        LevelConfig.Load(Content);
+        // Create SceneManager
+        _sceneManager = new SceneManager(GraphicsDevice, Content, _spriteBatch, _characterManager);
 
-        _sceneManager = new SceneManager(GraphicsDevice, Content, _spriteBatch, characterManager);
-        _sceneManager.ChangeScene(LevelConfig.GetLevelByName("test"), SceneType.Level);
-        //cut scene
-        //_sceneManager.ChangeScene(new LevelData { LevelName = "IntroCutscene" }, SceneType.CutScene);
-        //_sceneManager.ChangeScene(new LevelData { LevelName = "Ending" }, SceneType.CutScene);
-        //_sceneManager.ChangeScene(new LevelData { LevelName = "Credits" }, SceneType.Credits);
-
- 
         var arrowTexture = Content.Load<Texture2D>("sprite/arrow");
         ProjectileFactory.Initialize(arrowTexture);
 
@@ -76,6 +70,10 @@ public class Game1 : Game
         var pixel = new Texture2D(_spriteBatch.GraphicsDevice, 1, 1);
         pixel.SetData([Color.White]);
         GameConstants.Pixel = pixel;
+
+        // Load and start with the CutScene
+        var firstScene = LevelJsonLoader.LoadFromFile("../../../Content/Data/Levels/1-1.json");
+        _sceneManager.ChangeScene(firstScene, SceneType.Level);
     }
 
     protected override void Update(GameTime gameTime)

@@ -73,137 +73,57 @@ public class LevelScene : SceneBase
         _meowSword = sword;
     }
 
-    public override void Load(LevelData levelData)
+    public override void Load(LevelJsonModel levelData)
     {
+        // Load tile map and static elements
         var tileMapObject = _mapManager.LoadLevel(levelData, _content);
-        RespawnManager.SpawnPoint = levelData.SpawnPoint;
-        var tileMap = tileMapObject.GetComponent<TileMapComponent>();
-        var musicPlayer = new GameObject();
-        musicPlayer.Name = "MusicPlayer";
-
-        _cameraSystem.SetMapWidthInTiles(tileMap.TilesPerRowMap);
-
         _gameObjects.Add(tileMapObject);
 
+        var tileMap = tileMapObject.GetComponent<TileMapComponent>();
+        _cameraSystem.SetMapWidthInTiles(tileMap.TilesPerRowMap);
+
+        // Spawn & finish positions
+        RespawnManager.SpawnPoint = new Vector2(levelData.SpawnPoint[0], levelData.SpawnPoint[1]);
+
+        // Add parallax background
         var bg1 = _content.Load<Texture2D>("map/background/background_1");
         var bg2 = _content.Load<Texture2D>("map/background/background_2");
-
-        var parallax = new ParallaxComponent(bg1, bg2, 0.05f, 0.1f);
-        var parallaxObj = new GameObject();
-        parallaxObj.Name = "Parallax";
-        parallaxObj.Position = Vector2.Zero;
-        parallaxObj.AddComponent(parallax);
+        var parallaxObj = new GameObject
+        {
+            Name = "Parallax",
+            Position = Vector2.Zero
+        };
+        parallaxObj.AddComponent(new ParallaxComponent(bg1, bg2, 0.05f, 0.1f));
         _gameObjects.Add(parallaxObj);
 
+        // Add HUD texture refs (optional)
         hud1 = _content.Load<Texture2D>("map/HUD/Sword_Key");
         hud2 = _content.Load<Texture2D>("map/HUD/Bow_Key");
 
-        _meowBow.Position = new Vector2(64, 700);
-        _meowSword.Position = new Vector2(192, 700);
-
+        // Add player characters
         _gameObjects.Add(_meowBow);
         _gameObjects.Add(_meowSword);
-        // Create music player object
-        musicPlayer.Name = "BackgroundMusic";
+
+        // Add music player
+        var musicPlayer = new GameObject { Name = "BackgroundMusic" };
         musicPlayer.AddComponent(new SoundComponent
         {
             BackgroundMusic = _content.Load<Microsoft.Xna.Framework.Media.Song>("audio/theme"),
             Volume = 0.1f,
             PlayMusicOnStart = true
         });
-
         _gameObjects.Add(musicPlayer);
 
-        // load buttons
-        var buttonObj = new GameObject();
-        buttonObj.Name = "btn1-1-1";
-        buttonObj.Position = new Vector2(64 * 11, 64 * 7);
-        buttonObj.AddComponent(new SpriteComponent
+        // Add objects from JSON data
+        foreach (var objData in levelData.Objects)
         {
-            Texture = _content.Load<Texture2D>("sprite/button"),
-            SourceRect = new Rectangle(0, 0, 64, 64),
-            RenderSource = new Rectangle(0, 0, 64, 64),
-        });
-        buttonObj.AddComponent(new ButtonComponent
-        {
-            TargetIds = new List<string> { "ladder1-1-1" },
-        });
-
-        var ladderObj = new GameObject();
-        ladderObj.Name = "ladder1-1-1";
-        ladderObj.AddComponent(new TriggerableTileMapComponent()
-        {
-            TriggerId = "ladder1-1-1",
-            Grid = new Dictionary<Point, int>
+            var obj = ObjectFactory.CreateFrom(objData, _content);
+            if (obj != null)
             {
-                { new Point(9, 8), 32 },
-                { new Point(9, 9), 32 },
-                { new Point(9, 10), 32 },
-                { new Point(9, 11), 32 },
+                _gameObjects.Add(obj);
             }
-        });
-        _gameObjects.Add(buttonObj);
-        _gameObjects.Add(ladderObj);
-
-        // add box
-        GameObject boxObj = new GameObject();
-        boxObj.Name = "box1-1-1";
-        boxObj.Position = new Vector2(64 * 2, 64 * 10);
-
-        boxObj.AddComponent(new SpriteComponent
-        {
-            Texture = _content.Load<Texture2D>("sprite/box"),
-            SourceRect = new Rectangle(0, 0, 64, 64),
-            RenderSource = new Rectangle(0, 0, 64, 64)
-        });
-        boxObj.AddComponent(new PhysicsComponent
-        {
-            Velocity = Vector2.Zero,
-            IsGrounded = false,
-            GravityScale = 1f
-        });
-        boxObj.AddComponent(new DebugComponent());
-        boxObj.AddComponent(new PushableComponent());
-
-        _gameObjects.Add(boxObj);
-
-        // add box 2
-        GameObject boxObj2 = new GameObject();
-        boxObj2.Name = "box1-1-2";
-        boxObj2.Position = new Vector2(13 * 64, 64 * 2);
-
-        boxObj2.AddComponent(new SpriteComponent
-        {
-            Texture = _content.Load<Texture2D>("sprite/box"),
-            SourceRect = new Rectangle(0, 0, 64, 64),
-            RenderSource = new Rectangle(0, 0, 64, 64)
-        });
-        boxObj2.AddComponent(new PhysicsComponent
-        {
-            Velocity = Vector2.Zero,
-            IsGrounded = false,
-            GravityScale = 1f
-        });
-        boxObj2.AddComponent(new DebugComponent());
-        boxObj2.AddComponent(new PushableComponent());
-        _gameObjects.Add(boxObj2);
-
-        // add breakable box
-        GameObject breakableBoxObj = new GameObject();
-        breakableBoxObj.Name = "breakableBox1-1-1";
-        breakableBoxObj.Position = new Vector2(12 * 64, 9 * 64);
-        breakableBoxObj.AddComponent(new SpriteComponent
-        {
-            Texture = _content.Load<Texture2D>("sprite/box"),
-            SourceRect = new Rectangle(0, 0, 64, 64 * 3),
-            RenderSource = new Rectangle(0, 0, 64, 64 * 3)
-        });
-        breakableBoxObj.AddComponent(new BreakableComponent
-        {
-            Health = 3,
-        });
-        _gameObjects.Add(breakableBoxObj);
-
+        }
+        // Respawn system
         RespawnManager.RespawnPlayers(_gameObjects);
     }
 

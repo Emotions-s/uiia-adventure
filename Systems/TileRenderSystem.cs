@@ -23,7 +23,7 @@ public class TileRenderSystem : SystemBase
                 continue;
             var tileMap = obj.GetComponent<TileMapComponent>();
 
-            foreach (var tile in tileMap.Grid)
+            foreach (var tile in tileMap.Tiles)
             {
                 int id = tile.Value;
 

@@ -28,7 +28,7 @@ namespace uiia_adventure.Scenes
             _spriteBatch = spriteBatch;
         }
 
-        public override void Load(LevelData levelData)
+        public override void Load(LevelJsonModel levelData)
         {
             _creditsImage = _content.Load<Texture2D>("cutscenes/credits"); // credits.png
             _music = _content.Load<Song>("audio/credits_song");           // credits_theme.mp3
