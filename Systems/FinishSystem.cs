@@ -55,7 +55,6 @@ public class FinishSystem(SceneFlowController flowController) : SystemBase
 
         if (insideCount >= 2)
         {
-            Console.WriteLine("Finish area triggered! by " + insideCount + " players");
             _finished = true;
             _flowController.GoToNextScene();
         }

@@ -5,20 +5,23 @@ using Microsoft.Xna.Framework;
 using uiia_adventure.Core;
 using uiia_adventure.Components;
 using uiia_adventure.Managers;
-public class DeathSystem : SystemBase
+using uiia_adventure.Globals;
+
+public class DeathSystem(SceneFlowController flowController) : SystemBase
 {
+    private readonly SceneFlowController _flowController = flowController;
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
         foreach (var obj in gameObjects)
         {
             if (obj.HasComponent<DeathFlagComponent>())
             {
-                RespawnManager.RespawnPlayers(gameObjects);
                 if (Game1.deathSound != null)
                 {
                     Game1.deathSound.Play(1f, 0f, 0f);
                 }
-                RespawnManager.RespawnPlayers(gameObjects);
+                // RespawnManager.RespawnPlayers(gameObjects);
+                _flowController.RestartScene();
                 obj.RemoveComponent<DeathFlagComponent>();
             }
         }

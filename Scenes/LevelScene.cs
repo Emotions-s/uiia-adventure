@@ -54,10 +54,10 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new PhysicsSystem(_cameraSystem));
         _updateSystems.Add(new HazardSystem());
         _updateSystems.Add(new ButtonSystem());
-        _updateSystems.Add(new DeathSystem());
-        _updateSystems.Add(new AnimationSystem());
-
+        _updateSystems.Add(new DeathSystem(FlowController));
         _updateSystems.Add(new FinishSystem(FlowController));
+
+        _updateSystems.Add(new AnimationSystem());
         _updateSystems.Add(new DebugSkipSystem(FlowController));
 
         // Parallax
@@ -86,9 +86,6 @@ public class LevelScene : SceneBase
         var tileMap = tileMapObject.GetComponent<TileMapComponent>();
         _cameraSystem.SetMapWidthInTiles(tileMap.TilesPerRowMap);
 
-        // Spawn & finish positions
-        RespawnManager.SpawnPoint = new Vector2(levelData.SpawnPoint[0], levelData.SpawnPoint[1]);
-
         // Add parallax background
         var bg1 = ResourceCache.GetTexture2D("map/background/background_1", _content);
         var bg2 = ResourceCache.GetTexture2D("map/background/background_2", _content);
@@ -108,6 +105,9 @@ public class LevelScene : SceneBase
         // Add player characters
         _gameObjects.Add(_meowBow);
         _gameObjects.Add(_meowSword);
+
+        _meowBow.Position = new Vector2(levelData.SpawnPoint[0], levelData.SpawnPoint[1]);
+        _meowSword.Position = new Vector2(levelData.SpawnPoint[0] + GameConstants.TileSize, levelData.SpawnPoint[1]);
 
         // Add music player
         var musicPlayer = new GameObject { Name = "BackgroundMusic" };
@@ -139,10 +139,6 @@ public class LevelScene : SceneBase
             Area = new Rectangle(levelData.FinishPoint[0], levelData.FinishPoint[1], GameConstants.TileSize, GameConstants.TileSize),
         });
         _gameObjects.Add(finishObj);
-
-
-        // Respawn system
-        RespawnManager.RespawnPlayers(_gameObjects);
     }
 
     public override void Update(GameTime gameTime)

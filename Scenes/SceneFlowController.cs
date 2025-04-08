@@ -48,4 +48,14 @@ public class SceneFlowController
         var levelData = LevelJsonLoader.LoadFromFile(next.Path);
         _sceneManager.ChangeScene(levelData, next.SceneType, this);
     }
+
+    public void RestartScene()
+    {
+        if (_currentIndex < 0 || _currentIndex >= _sceneSequence.Count)
+            return;
+
+        var current = _sceneSequence[_currentIndex];
+        var levelData = LevelJsonLoader.LoadFromFile(current.Path);
+        _sceneManager.ChangeScene(levelData, current.SceneType, this);
+    }
 }

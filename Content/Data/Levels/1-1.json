@@ -25,7 +25,7 @@
       },
       {
         "type": "turret",
-        "position": [400, 896],
+        "position": [1000, 896],
         "texture": "sprite/turret",
         "size": [64, 64],
         "direction": [-1, 0],
