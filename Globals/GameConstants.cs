@@ -11,7 +11,7 @@ public static class GameConstants
     public static Texture2D Pixel { get; set; } = null!;
 
     public static string MeowBowName = "MeowBow";
-    public static string MeowSwordName = "MoewSword";
+    public static string MeowSwordName = "MeowSword";
 
     public static string TileMapName = "TileMap";
 }

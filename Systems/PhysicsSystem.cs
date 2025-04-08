@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
+using uiia_adventure.Globals;
 using uiia_adventure.Managers;
 
 public class PhysicsSystem : SystemBase
@@ -34,9 +35,12 @@ public class PhysicsSystem : SystemBase
                 physics.Velocity.Y += Gravity * dt;
 
             // Clamp X position after physics is applied
-            float minX = _cameraSystem.CameraX;
-            float maxX = _cameraSystem.CameraX + ResolutionManager.VirtualWidth - sprite.SourceRect.Width;
-            obj.Position.X = MathHelper.Clamp(obj.Position.X, minX, maxX);
+            if (obj.Name == GameConstants.MeowBowName || obj.Name == GameConstants.MeowSwordName)
+            {
+                float minX = _cameraSystem.CameraX;
+                float maxX = _cameraSystem.CameraX + ResolutionManager.VirtualWidth - sprite.SourceRect.Width;
+                obj.Position.X = MathHelper.Clamp(obj.Position.X, minX, maxX);
+            }
         }
     }
 }

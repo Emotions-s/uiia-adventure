@@ -32,10 +32,7 @@ public class EntityFactory
             Texture = texture,
             SourceRect = new Rectangle(0, 0, 64, 64)
         });
-        obj.AddComponent(new StatsComponent
-        {
-            PushForce = 2f,
-        });
+        obj.AddComponent(new StatsComponent());
         obj.AddComponent(new JumpComponent
         {
             MaxJumpHeight = 6 * GameConstants.TileSize + GameConstants.TileSize / 2,
@@ -112,6 +109,8 @@ public class EntityFactory
             },
             JumpFrame = new Rectangle(0, 0, 64, 64),
         });
+
+        obj.AddComponent(new CanPushComponent());
 
         obj.AddComponent(new SoundComponent
         {

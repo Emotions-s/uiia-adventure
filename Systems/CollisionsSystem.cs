@@ -16,6 +16,9 @@ public class CollisionSystem : SystemBase
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        var pushableObjects = gameObjects.Where(g => g.HasComponent<PushableComponent>()).ToList();
+
         foreach (var obj in gameObjects)
         {
             var physics = obj.GetComponent<PhysicsComponent>();
@@ -26,6 +29,13 @@ public class CollisionSystem : SystemBase
             var ground = gameObjects.FirstOrDefault(obj => obj.GetComponent<GroundTileComponent>() != null)?.GetComponent<GroundTileComponent>();
             var wall = gameObjects.FirstOrDefault(obj => obj.GetComponent<WallTileComponent>() != null)?.GetComponent<WallTileComponent>();
 
+            Rectangle playerRect = new(
+                (int)obj.Position.X + sprite.SourceRect.X,
+                (int)obj.Position.Y + sprite.SourceRect.Y,
+                sprite.SourceRect.Width,
+                sprite.SourceRect.Height
+            );
+
             int TileSize = GameConstants.TileSize;
             Point posTileBotLeft = new((int)obj.Position.X / TileSize, (int)((obj.Position.Y + TileSize) / TileSize));
             Point posTileBotRight = new((int)((obj.Position.X + TileSize - 1) / TileSize), (int)((obj.Position.Y + TileSize) / TileSize));
@@ -33,15 +43,27 @@ public class CollisionSystem : SystemBase
             // check tile bot left and right if empty == apply gravity
             if (!ground.Tiles.Contains(posTileBotLeft) && !ground.Tiles.Contains(posTileBotRight))
             {
-                physics.IsGrounded = false;
+                if (obj.Name == GameConstants.MeowBowName || obj.Name == GameConstants.MeowSwordName)
+                {
+                    bool isOnBox = false;
+                    foreach (var box in pushableObjects)
+                    {
+                        var boxSprite = box.GetComponent<SpriteComponent>();
+                        if (boxSprite != null && IsStandingOnBox(playerRect, box, boxSprite))
+                        {
+                            isOnBox = true;
+                            break;
+                        }
+                    }
+                    physics.IsGrounded = isOnBox;
+                }
+                else
+                {
+                    physics.IsGrounded = false;
+                }
             }
 
-            Rectangle playerRect = new(
-                (int)obj.Position.X + sprite.SourceRect.X,
-                (int)obj.Position.Y + sprite.SourceRect.Y,
-                sprite.SourceRect.Width,
-                sprite.SourceRect.Height
-            );
+
 
             debug.PlayerTiles.Clear();
             HashSet<Point> visited = new();
@@ -90,6 +112,7 @@ public class CollisionSystem : SystemBase
             _groundCollisionsCheckOrder.Sort((a, b) => a.Item1.CompareTo(b.Item1));
             _wallCollisionsCheckOrder.Sort((a, b) => a.Item1.CompareTo(b.Item1));
 
+            // check walls
             foreach (var tileCollision in _wallCollisionsCheckOrder)
             {
                 Rectangle tileCollisionRect = tileCollision.Item2;
@@ -99,6 +122,7 @@ public class CollisionSystem : SystemBase
 
             }
 
+            // check ground
             foreach (var tileCollision in _groundCollisionsCheckOrder)
             {
                 Rectangle tileCollisionRect = tileCollision.Item2;
@@ -113,6 +137,50 @@ public class CollisionSystem : SystemBase
 
                 }
             }
+
+            // check pushable objects
+            var playerPushable = obj.GetComponent<CanPushComponent>();
+
+            foreach (var box in pushableObjects)
+            {
+                var boxSprite = box.GetComponent<SpriteComponent>();
+                var pushablesComponent = box.GetComponent<PushableComponent>();
+                if (boxSprite == null) continue;
+
+                Rectangle boxRect = new(
+                    (int)box.Position.X + boxSprite.SourceRect.X,
+                    (int)box.Position.Y + boxSprite.SourceRect.Y,
+                    boxSprite.SourceRect.Width,
+                    boxSprite.SourceRect.Height
+                );
+
+                if (CollisionHelper.DynamicRectVsRect(playerRect, physics.Velocity, dt, boxRect,
+                    out Vector2 contactPoint, out Vector2 contactNormal, out float contactTime))
+                {
+                    // Console.WriteLine($"Collision with box {box.Name} at {contactPoint} with normal {contactNormal} and time {contactTime}");
+                    if (playerPushable == null || !pushablesComponent.CanBePushed || contactNormal.Y < 0)
+                    {
+                        physics.Velocity += contactNormal * new Vector2(Math.Abs(physics.Velocity.X), Math.Abs(physics.Velocity.Y)) * (1 - contactTime);
+                    }
+                    if (contactNormal.Y < 0)
+                        physics.IsGrounded = true;
+                }
+            }
         }
+    }
+    private static bool IsStandingOnBox(Rectangle playerRect, GameObject box, SpriteComponent boxSprite)
+    {
+        Rectangle boxRect = new(
+            (int)box.Position.X + boxSprite.SourceRect.X,
+            (int)box.Position.Y + boxSprite.SourceRect.Y,
+            boxSprite.SourceRect.Width,
+            boxSprite.SourceRect.Height
+        );
+
+        // Only consider "standing on" if bottom of player intersects top of box
+        Rectangle feet = new(playerRect.Left, playerRect.Bottom, playerRect.Width, 1);
+        Rectangle topOfBox = new(boxRect.Left, boxRect.Top - 1, boxRect.Width, 2);
+
+        return feet.Intersects(topOfBox);
     }
 }

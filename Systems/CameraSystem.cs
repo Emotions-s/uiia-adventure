@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using uiia_adventure.Core;
 using uiia_adventure.Globals;
+using uiia_adventure.Managers;
 
 namespace uiia_adventure.Systems;
 

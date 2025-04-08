@@ -110,4 +110,17 @@ public static class CollisionHelper
 
         return rectA.Intersects(rectB);
     }
+
+    public static Rectangle GetObjectRect(GameObject obj)
+    {
+        var sprite = obj.GetComponent<SpriteComponent>();
+        if (sprite == null) return Rectangle.Empty;
+
+        return new Rectangle(
+            (int)obj.Position.X + sprite.SourceRect.X,
+            (int)obj.Position.Y + sprite.SourceRect.Y,
+            sprite.SourceRect.Width,
+            sprite.SourceRect.Height
+        );
+    }
 }

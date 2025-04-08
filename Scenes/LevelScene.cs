@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
 using uiia_adventure.Globals;
@@ -43,6 +44,7 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new MovementSystem());
         _updateSystems.Add(new JumpSystem());
         _updateSystems.Add(new ClimbSystem());
+        _updateSystems.Add(new PushSystem());
         _updateSystems.Add(new CollisionSystem());
         _updateSystems.Add(new PhysicsSystem(_cameraSystem));
         _updateSystems.Add(new HazardSystem());
@@ -137,6 +139,49 @@ public class LevelScene : SceneBase
         });
         _gameObjects.Add(buttonObj);
         _gameObjects.Add(ladderObj);
+
+        // add box
+        GameObject boxObj = new GameObject();
+        boxObj.Name = "box1-1-1";
+        boxObj.Position = new Vector2(64 * 2, 64 * 10);
+
+        boxObj.AddComponent(new SpriteComponent
+        {
+            Texture = _content.Load<Texture2D>("sprite/box"),
+            SourceRect = new Rectangle(0, 0, 64, 64),
+            RenderSource = new Rectangle(0, 0, 64, 64)
+        });
+        boxObj.AddComponent(new PhysicsComponent
+        {
+            Velocity = Vector2.Zero,
+            IsGrounded = false,
+            GravityScale = 1f
+        });
+        boxObj.AddComponent(new DebugComponent());
+        boxObj.AddComponent(new PushableComponent());
+
+        _gameObjects.Add(boxObj);
+
+        // add box 2
+        GameObject boxObj2 = new GameObject();
+        boxObj2.Name = "box1-1-2";
+        boxObj2.Position = new Vector2(13 * 64, 64 * 2);
+
+        boxObj2.AddComponent(new SpriteComponent
+        {
+            Texture = _content.Load<Texture2D>("sprite/box"),
+            SourceRect = new Rectangle(0, 0, 64, 64),
+            RenderSource = new Rectangle(0, 0, 64, 64)
+        });
+        boxObj2.AddComponent(new PhysicsComponent
+        {
+            Velocity = Vector2.Zero,
+            IsGrounded = false,
+            GravityScale = 1f
+        });
+        boxObj2.AddComponent(new DebugComponent());
+        boxObj2.AddComponent(new PushableComponent());
+        _gameObjects.Add(boxObj2);
 
         RespawnManager.RespawnPlayers(_gameObjects);
     }

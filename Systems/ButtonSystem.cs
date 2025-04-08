@@ -17,30 +17,35 @@ public class ButtonSystem : SystemBase
             if (ButtonComponent == null || SpriteComponent == null)
                 continue;
 
-            List<GameObject> players = SystemHelper.GetPlayerGameObject(gameObjects);
-            if (players == null)
-                continue;
-
             if (ButtonComponent.IsPressed)
             {
                 continue;
             }
-            foreach (var player in players)
-            {
-                var playerSprite = player.GetComponent<SpriteComponent>();
-                if (playerSprite == null)
-                    break;
 
-                if (!CollisionHelper.ObjectVsObject(player, gameObject))
+            List<GameObject> otherSpriteObj = SystemHelper.getGameObjectsByType<SpriteComponent>(gameObjects);
+
+            if (otherSpriteObj == null)
+                continue;
+
+            foreach (var obj in otherSpriteObj)
+            {
+                if (obj == gameObject)
+                    continue;
+
+                var playerSprite = obj.GetComponent<SpriteComponent>();
+                if (playerSprite == null)
+                    continue;
+
+                if (!CollisionHelper.ObjectVsObject(obj, gameObject))
                 {
-                    break;
+                    continue;
                 }
 
                 ButtonComponent.IsPressed = true;
 
                 var triggerObj = SystemHelper.GetTriggerGameObjectByIds(gameObjects, ButtonComponent.TargetIds);
                 if (triggerObj == null)
-                    break;
+                    continue;
 
                 triggerObj.ForEach(target =>
                     {
