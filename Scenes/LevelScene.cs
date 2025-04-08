@@ -21,8 +21,8 @@ public class LevelScene : SceneBase
     private readonly ContentManager _content;
     private readonly SpriteBatch _spriteBatch;
     private readonly SoundSystem _soundSystem = new();
-
-
+    private Texture2D hud1;
+    private Texture2D hud2;
     private GameObject _meowBow;
     private GameObject _meowSword;
 
@@ -88,6 +88,9 @@ public class LevelScene : SceneBase
         parallaxObj.AddComponent(parallax);
         _gameObjects.Add(parallaxObj);
 
+        hud1 = _content.Load<Texture2D>("map/HUD/Sword_Key");
+        hud2 = _content.Load<Texture2D>("map/HUD/Bow_Key");
+
         _meowBow.Position = new Vector2(64, 700);
         _meowSword.Position = new Vector2(192, 700);
 
@@ -151,9 +154,15 @@ public class LevelScene : SceneBase
     {
         _graphics.Clear(new Color(26, 24, 24));
         _spriteBatch.Begin(transformMatrix: _cameraSystem.Transform, samplerState: SamplerState.PointClamp);
+        
+
         foreach (var system in _renderSystems)
             system.Update(gameTime, _gameObjects);
+        _spriteBatch.End();
 
+        _spriteBatch.Begin(transformMatrix: null, samplerState: SamplerState.PointClamp);
+        _spriteBatch.Draw(hud1, new Vector2(GameConstants.TileSize * 1, GameConstants.TileSize * 1), Color.White);
+        _spriteBatch.Draw(hud2, new Vector2(GameConstants.TileSize * 19, GameConstants.TileSize * 1), Color.White);
         _spriteBatch.End();
     }
 }
