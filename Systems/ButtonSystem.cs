@@ -3,11 +3,13 @@ namespace uiia_adventure.Systems;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
 using uiia_adventure.Globals;
 public class ButtonSystem : SystemBase
 {
+    private static SoundEffect? _buttonSound = Game1.buttonSound;
     public override void Update(GameTime gameTime, List<GameObject> gameObjects)
     {
         foreach (var gameObject in gameObjects)
@@ -20,6 +22,7 @@ public class ButtonSystem : SystemBase
             if (ButtonComponent.IsPressed)
             {
                 SpriteComponent.RenderSource = ButtonComponent.PressedFrame;
+                _buttonSound?.Play();
                 continue;
             }
             else
