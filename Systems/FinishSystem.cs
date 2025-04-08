@@ -1,0 +1,63 @@
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using uiia_adventure.Components;
+using uiia_adventure.Core;
+using uiia_adventure.Globals;
+
+namespace uiia_adventure.Systems;
+
+public class FinishSystem(SceneFlowController flowController) : SystemBase
+{
+    private readonly SceneFlowController _flowController = flowController;
+    private bool _finished = false;
+
+    public override void Update(GameTime gameTime, List<GameObject> gameObjects)
+    {
+        if (_finished) return;
+
+        var finishObj = gameObjects.Find(g => g.HasComponent<FinishTileComponent>());
+        if (finishObj == null) return;
+
+        var debugComponent = gameObjects.Find(g => g.HasComponent<DebugComponent>());
+
+
+        var finishArea = finishObj.GetComponent<FinishTileComponent>().Area;
+
+        if (debugComponent != null)
+        {
+            var debugTile = debugComponent?.GetComponent<DebugComponent>();
+            if (debugTile != null)
+            {
+                debugTile.Rectangles.Add(finishArea);
+            }
+        }
+        var players = SystemHelper.GetPlayerGameObjects(gameObjects);
+
+        int insideCount = 0;
+        foreach (var player in players)
+        {
+            var sprite = player.GetComponent<SpriteComponent>();
+            if (sprite == null) continue;
+
+            Rectangle playerRect = new(
+                (int)player.Position.X + sprite.SourceRect.X,
+                (int)player.Position.Y + sprite.SourceRect.Y,
+                sprite.SourceRect.Width,
+                sprite.SourceRect.Height
+            );
+
+            if (finishArea.Intersects(playerRect))
+            {
+                insideCount++;
+            }
+        }
+
+        if (insideCount >= 2)
+        {
+            Console.WriteLine("Finish area triggered! by " + insideCount + " players");
+            _finished = true;
+            _flowController.GoToNextScene();
+        }
+    }
+}

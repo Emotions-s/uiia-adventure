@@ -8,7 +8,7 @@
     "ladderPath": "map/map1/ladder_1_1.csv",
     "hazardPath": "map/map1/hazard_1_1.csv",
     "spawnPoint": [64, 700],
-    "finishPoint": [3840, 1024],
+    "finishPoint": [3776, 896],
     "objects": [
       {
         "type": "box",

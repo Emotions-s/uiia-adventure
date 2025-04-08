@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
 using uiia_adventure.Components;
 using uiia_adventure.Core;
 using uiia_adventure.Globals;
@@ -54,9 +55,9 @@ public class LevelScene : SceneBase
         _updateSystems.Add(new HazardSystem());
         _updateSystems.Add(new ButtonSystem());
         _updateSystems.Add(new DeathSystem());
-
         _updateSystems.Add(new AnimationSystem());
 
+        _updateSystems.Add(new FinishSystem(FlowController));
         _updateSystems.Add(new DebugSkipSystem(FlowController));
 
         // Parallax
@@ -67,7 +68,7 @@ public class LevelScene : SceneBase
         _renderSystems.Add(new RenderSystem(_spriteBatch));
 
         // Uncomment this line to add the debug render system
-        // _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
+        _renderSystems.Add(new DebugRenderSystem(_spriteBatch));
     }
 
     public void SetPlayers(GameObject bow, GameObject sword)
@@ -127,6 +128,17 @@ public class LevelScene : SceneBase
                 _gameObjects.Add(obj);
             }
         }
+
+        // add finish comp
+        var finishObj = new GameObject
+        {
+            Name = "Finish",
+        };
+        finishObj.AddComponent(new FinishTileComponent()
+        {
+            Area = new Rectangle(levelData.FinishPoint[0], levelData.FinishPoint[1], GameConstants.TileSize, GameConstants.TileSize),
+        });
+        _gameObjects.Add(finishObj);
 
 
         // Respawn system

@@ -1,5 +1,6 @@
 namespace uiia_adventure.Managers;
 
+using System;
 using System.Collections.Generic;
 using GameNamespace.Managers;
 using Microsoft.Xna.Framework;
@@ -18,7 +19,6 @@ public enum SceneType
 public class SceneManager
 {
     private SceneBase _currentScene;
-    private Dictionary<string, SceneBase> _loadedScenes = new();
 
     private GraphicsDevice _graphics;
     private ContentManager _content;
@@ -37,11 +37,6 @@ public class SceneManager
 
     public void ChangeScene(LevelJsonModel levelData, SceneType type, SceneFlowController flowController)
     {
-        if (_loadedScenes.TryGetValue(levelData.LevelName, out var scene))
-        {
-            _currentScene = scene;
-            return;
-        }
 
         switch (type)
         {
@@ -50,20 +45,17 @@ public class SceneManager
                 levelScene.SetPlayers(_characterManager.MeowBow, _characterManager.MeowSword);
                 levelScene.Load(levelData);
                 _currentScene = levelScene;
-                _loadedScenes[levelData.LevelName] = levelScene;
                 break;
             case SceneType.CutScene:
                 CutScene cutScene = new(_graphics, _content, _spriteBatch);
                 cutScene.FlowController = flowController;
                 _currentScene = cutScene;
-                _loadedScenes[levelData.LevelName] = cutScene;
                 _currentScene.Load(levelData);
                 break;
             case SceneType.Credits:
                 var creditsScene = new CreditsScene(_graphics, _content, _spriteBatch);
                 creditsScene.FlowController = flowController;
                 _currentScene = creditsScene;
-                _loadedScenes[levelData.LevelName] = creditsScene;
                 _currentScene.Load(levelData);
                 break;
         }
